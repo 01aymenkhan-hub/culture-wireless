@@ -1,0 +1,51 @@
+.coverageSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--cw-gradient-soft);
+  color: var(--cw-on-surface);
+  text-align: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.content {
+  max-width: 800px;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cw-navy);
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  color: var(--cw-fg-2);
+  line-height: 1.6;
+}
+
+.map {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 2rem;
+}
+
+/* Dark Theme */
+:root[data-theme="dark"] .coverageSection {
+  background: var(--cw-navy-deep);
+  color: var(--cw-fg-inverse-1);
+}
+
+:root[data-theme="dark"] .title {
+  color: var(--cw-purple);
+}
+
+:root[data-theme="dark"] .description {
+  color: var(--cw-fg-inverse-2);
+}

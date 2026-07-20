@@ -1,0 +1,33 @@
+import { NextResponse } from "next/server";
+import { checkCellularCoverage } from "@/lib/api/coverageMap";
+import { parseAndValidateAddress } from "@/lib/validation/availability";
+
+export const dynamic = "force-dynamic";
+
+export async function POST(request) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      { available: false, error: "Invalid JSON body" },
+      { status: 400 },
+    );
+  }
+
+  let address;
+  try {
+    address = parseAndValidateAddress(body);
+  } catch (err) {
+    return NextResponse.json(
+      { available: false, error: err.message, details: err.details },
+      { status: err.status || 400 },
+    );
+  }
+
+  const serviceType =
+    body.serviceType || body.service_type || address.serviceType || "mobile";
+
+  const result = await checkCellularCoverage(address, serviceType);
+  return NextResponse.json(result);
+}
