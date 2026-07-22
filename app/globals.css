@@ -1273,7 +1273,7 @@ textarea.form-input {
 }
 .avail-page {
   background: var(--cw-bg-2);
-  min-height: 100vh;
+  min-height: 90vh;
 }
 .avail-topbar {
   background: var(--cw-bg-2);
@@ -1453,14 +1453,15 @@ textarea.form-input {
 .result-banner {
   background: linear-gradient(135deg, #33244d 0%, #4f3d7a 50%, #8b69c1 100%);
   color: #fff;
-  padding: 64px 32px 80px;
+  padding: 64px 12px;
   position: relative;
   overflow: hidden;
+  margin-bottom: 40px;
 }
 
 /* UNAVAILABLE */
 .unavail-section {
-  padding: 72px 32px 80px;
+  padding: 40px 32px 0px;
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 64px;

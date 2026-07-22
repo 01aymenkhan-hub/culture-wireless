@@ -289,7 +289,7 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
         fontFamily: "var(--cw-font-sans)",
       }}
     >
-      <AvailTopBar step={1} total={3} onBack={onBack} />
+      {/* <AvailTopBar step={1} total={3} onBack={onBack} /> */}
 
       <div
         style={{

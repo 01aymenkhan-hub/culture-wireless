@@ -10,14 +10,6 @@ import Footer from "./Components/Footer/Footer";
  * original visual design where the flow occupies the full viewport.
  */
 export default function LayoutClient({ children }) {
-  const pathname = usePathname();
-  const cleanPath = pathname ? pathname.replace(/\/$/, "") : "";
-  const isAvailabilityRoute = cleanPath === "/check-availability";
-
-  if (isAvailabilityRoute) {
-    return <div>{children}</div>;
-  }
-
   return (
     <div>
       <Nav />

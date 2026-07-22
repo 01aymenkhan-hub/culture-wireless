@@ -44,12 +44,12 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
     <div className="avail-page">
       <div
         style={{
-          background: "var(--cw-bg-1)",
-          borderBottom: "1px solid var(--cw-border-1)",
           padding: "14px 32px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          maxWidth: "1280px",
+          marginInline: "auto",
         }}
       >
         <button
@@ -66,9 +66,9 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
             fontFamily: "var(--cw-font-sans)",
           }}
         >
-          <Ico n="arrow-left" size={16} /> Back
+          <Ico n="arrow-left" size={16} /> Check Another Address
         </button>
-        <AvailTopBar step={3} total={3} onBack={onBack} />
+        {/* <AvailTopBar step={3} total={3} onBack={onBack} backLabel="Check Another Address" /> */}
         <div style={{ width: 60 }} />
       </div>
 
@@ -151,22 +151,42 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
             Our network is growing every quarter. Drop your email and we'll let you
             know the second service lights up at:
           </p>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              background: "var(--cw-bg-1)",
-              border: "1px solid var(--cw-border-1)",
-              padding: "10px 16px",
-              borderRadius: 12,
-              fontSize: 15,
-              color: "var(--cw-fg-1)",
-              marginBottom: 28,
-            }}
-          >
-            <Ico n="map-pin" size={15} color="var(--cw-purple)" />
-            <strong style={{ fontWeight: 600 }}>{address}</strong>
+          <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 28 }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                background: "var(--cw-bg-1)",
+                border: "1px solid var(--cw-border-1)",
+                padding: "10px 16px",
+                borderRadius: 12,
+                fontSize: 15,
+                color: "var(--cw-fg-1)",
+              }}
+            >
+              <Ico n="map-pin" size={15} color="var(--cw-purple)" />
+              <strong style={{ fontWeight: 600 }}>{address}</strong>
+            </div>
+
+            <button
+              type="button"
+              onClick={onBack}
+              className="btn btn-ghost"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "10px 18px",
+                borderRadius: 12,
+                border: "1px solid var(--cw-border-2)",
+                color: "var(--cw-fg-1)",
+                fontSize: 14,
+                cursor: "pointer",
+              }}
+            >
+              <Ico n="refresh-cw" size={14} /> Check Another Address
+            </button>
           </div>
           {!notified ? (
             <form onSubmit={handleNotifySubmit} style={{ display: "flex", gap: 10, maxWidth: 480 }}>
