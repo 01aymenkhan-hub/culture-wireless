@@ -152,7 +152,9 @@ export default function Step5CurrentService({
               Main Reason for Switching *
             </label>
             <textarea
-              rows='7'
+              value={switchingReason}
+              onChange={(e) => handleChange("switchingReason", e.target.value)}
+              rows="7"
               name=""
               id=""
               style={{
