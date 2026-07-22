@@ -83,6 +83,7 @@ export default function AvailabilityFlow() {
       address={address}
       fiberAvailable={result.fiber}
       home5gAvailable={result.home5g}
+      home5gStatus={result.home5gStatus || "unavailable"}
       mobileAvailable={result.mobile}
       fiberDetail={result.fiberDetail}
       home5gDetail={result.home5gDetail}

@@ -220,6 +220,11 @@ function formatCoverageDetail(data, label) {
         ? `${Math.round(data.coverage * 100)}% coverage`
         : "";
     const bits = [sig, cov].filter(Boolean).join(", ");
+    if (data.status === "caution") {
+      return bits
+        ? `${label} qualified with caution (${bits})`
+        : `${label} qualified with caution`;
+    }
     return bits ? `${label} available (${bits})` : `${label} available`;
   }
   return data?.error ? `${label} not available (${data.error})` : `${label} not available`;
@@ -306,12 +311,14 @@ export default function SmartCheckingPage({
       // Phase 3 — 5G Home via CoverageMap
       let home5gResult = "fail";
       let home5gDetail = "";
+      let home5gStatus = "unavailable";
       try {
         const data = await postJson("/api/coverage", {
           ...payload,
           serviceType: "home_internet",
         });
         home5gResult = data.available ? "pass" : "fail";
+        home5gStatus = data.status || (data.available ? "available" : "unavailable");
         home5gDetail = formatCoverageDetail(data, "5G Home");
       } catch {
         home5gDetail = "5G Home not available (Error)";
@@ -346,6 +353,7 @@ export default function SmartCheckingPage({
         onComplete({
           fiber: fiberResult === "pass",
           home5g: home5gResult === "pass",
+          home5gStatus,
           mobile: mobileResult === "pass",
           fiberDetail,
           home5gDetail,
@@ -505,6 +513,7 @@ export default function SmartCheckingPage({
                 onComplete({
                   fiber: results.fiber === "pass",
                   home5g: results.home5g === "pass",
+                  home5gStatus: home5gStatus || "unavailable",
                   mobile: results.mobile === "pass",
                   fiberDetail: details.fiber,
                   home5gDetail: details.home5g,

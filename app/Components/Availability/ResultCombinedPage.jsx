@@ -259,8 +259,26 @@ function MobilePlanCard({ plan, selected, onSelect }) {
   );
 }
 
-/* ── Status Pill ────────────────────────────────────────── */
-function StatusPill({ available, label }) {
+/* ── Status Pill ────────────────────────────────────────────────── */
+function StatusPill({ available, caution, label }) {
+  // Three states: available (green), caution (yellow/amber), unavailable (yellow)
+  let bg, border, color, icon;
+  if (available && !caution) {
+    bg = "rgba(74,222,128,0.12)";
+    border = "rgba(74,222,128,0.35)";
+    color = "#4ade80";
+    icon = "check-circle";
+  } else if (caution) {
+    bg = "rgba(255,185,0,0.12)";
+    border = "rgba(255,185,0,0.35)";
+    color = "var(--cw-yellow)";
+    icon = "alert-triangle";
+  } else {
+    bg = "rgba(255,185,0,0.12)";
+    border = "rgba(255,185,0,0.35)";
+    color = "var(--cw-yellow)";
+    icon = "clock";
+  }
   return (
     <div
       style={{
@@ -269,17 +287,17 @@ function StatusPill({ available, label }) {
         gap: 8,
         padding: "5px 12px",
         borderRadius: 999,
-        background: available ? "rgba(74,222,128,0.12)" : "rgba(255,185,0,0.12)",
-        border: `1px solid ${available ? "rgba(74,222,128,0.35)" : "rgba(255,185,0,0.35)"}`,
+        background: bg,
+        border: `1px solid ${border}`,
         fontFamily: "var(--cw-font-display)",
         fontSize: 10,
         letterSpacing: "0.18em",
         textTransform: "uppercase",
         fontWeight: 700,
-        color: available ? "#4ade80" : "var(--cw-yellow)",
+        color,
       }}
     >
-      <Ico n={available ? "check-circle" : "clock"} size={12} color={available ? "#4ade80" : "var(--cw-yellow)"} />
+      <Ico n={icon} size={12} color={color} />
       {label}
     </div>
   );
@@ -293,6 +311,7 @@ export default function ResultCombinedPage({
   address,
   fiberAvailable,
   home5gAvailable,
+  home5gStatus,
   mobileAvailable,
   fiberDetail,
   home5gDetail,
@@ -403,12 +422,18 @@ export default function ResultCombinedPage({
               features = ["Router included", "No contract", "No deposit"];
             }
 
+            const originalPrice = p.original_price ?? p.recurring_price;
+            const addonPrice = p.addon_price ?? 0;
+            const displayPrice = p.display_price ?? (originalPrice + addonPrice);
+
             return {
               id: p.plan_code,
               name,
               speed,
               unit,
-              price: p.recurring_price,
+              price: displayPrice,
+              originalPrice,
+              addonPrice,
               tag,
               features,
               popular,
@@ -470,7 +495,12 @@ export default function ResultCombinedPage({
         <div style={{ maxWidth: 760, position: "relative" }}>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
             {fiberAvailable && <StatusPill available label="Fiber · On-net" />}
-            {home5gAvailable && <StatusPill available label="5G Home · Available" />}
+            {home5gAvailable && home5gStatus === "caution" && (
+              <StatusPill available caution label="5G Home · Caution" />
+            )}
+            {home5gAvailable && home5gStatus !== "caution" && (
+              <StatusPill available label="5G Home · Available" />
+            )}
             {mobileAvailable && <StatusPill available label="5G Mobile · Available" />}
             {!fiberAvailable && <StatusPill available={false} label="Fiber · Off-net" />}
           </div>
@@ -507,7 +537,7 @@ export default function ResultCombinedPage({
             <Ico n="map-pin" size={15} color="#FFB900" />
             <span>{address.formattedAddress}</span>
           </div>
-          <p style={{ marginTop: 20, color: "rgba(255,255,255,0.78)", fontSize: 16, maxWidth: 560, lineHeight: 1.55 }}>
+          <p style={{ marginTop: 20, color: "rgba(255,255,255,0.78)", fontSize: 20, maxWidth: 560, lineHeight: 1.55 }}>
             {fiberAvailable
               ? "Pick a plan below — install in as little as 5 business days. No contract, no deposit, no nonsense."
               : "Fiber hasn't reached your block yet, but you're covered by our nationwide 5G network."}

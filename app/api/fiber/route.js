@@ -27,5 +27,6 @@ export async function POST(request) {
   }
 
   const result = await checkFiberAvailability(address);
+  
   return NextResponse.json(result);
 }
