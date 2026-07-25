@@ -1832,3 +1832,12 @@ textarea.form-input {
     padding: 40px 20px;
   }
 }
+
+@keyframes cwSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

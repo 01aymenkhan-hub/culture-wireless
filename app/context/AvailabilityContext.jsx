@@ -98,6 +98,7 @@ export function AvailabilityProvider({ children }) {
         customerInfo,
         currentServiceInfo,
       };
+      console.log({stateToSave})
       localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (e) {
       console.error("Failed to save availability state to localStorage:", e);
@@ -151,3 +152,6 @@ export function useAvailability() {
   }
   return ctx;
 }
+
+
+

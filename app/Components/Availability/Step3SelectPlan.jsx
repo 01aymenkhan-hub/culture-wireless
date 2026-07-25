@@ -387,6 +387,7 @@ export default function Step3SelectPlan({
         price,
         originalPrice,
         addonPrice,
+        addon_code: p.addon_code || "CWG-GSpire",
         tag,
         features,
         popular,
@@ -427,6 +428,7 @@ export default function Step3SelectPlan({
       price,
       originalPrice,
       addonPrice,
+      addon_code: rawWireless.addon_code || "5GHR",
       tag: "Whole home 5G",
       features: [
         "Unlimited 5G Data",
@@ -482,6 +484,7 @@ export default function Step3SelectPlan({
         price: p.recurring_price,
         originalPrice: p.recurring_price,
         addonPrice: 0,
+        addon_code: null,
         tag,
         features: [
           "Nationwide 5G access",
@@ -516,26 +519,6 @@ export default function Step3SelectPlan({
       }}
     >
       <div>
-        {/* Banner Section */}
-        {/* <div style={{ marginBottom: 32 }}>
-          <h1
-            style={{
-              fontFamily: "var(--cw-font-display)",
-              fontSize: "clamp(28px, 4vw, 42px)",
-              fontWeight: 800,
-              letterSpacing: "0.02em",
-              textTransform: "uppercase",
-              margin: "0 0 8px",
-              color: "var(--cw-fg-1)",
-            }}
-          >
-            Select Your <span className="cw-gradient-text">Service Plan</span>
-          </h1>
-          <p style={{ color: "var(--cw-fg-2)", fontSize: 16, maxWidth: 640 }}>
-            Choose exactly one plan for your home or mobile service. All prices include equipment and taxes with no hidden fees.
-          </p>
-        </div> */}
-
         {/* Hero banner */}
         <div className="result-banner">
           <div style={{ maxWidth: 1180, margin: "0 auto" }}>
@@ -630,27 +613,10 @@ export default function Step3SelectPlan({
           </div>
         </div>
 
-        {/* Loading State */}
-        {/* {loading && (
-          <div className="card-grid-3" style={{ width: "100%", margin: "32px 0" }}>
-            {[1, 2, 3].map((n) => (
-              <div
-                key={n}
-                style={{
-                  minHeight: 380,
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1.5px solid var(--cw-border-1)",
-                  borderRadius: 16,
-                  padding: 24,
-                  opacity: 0.6,
-                  // animation: "cw-pulse 1.5s infinite ease-in-out",
-                }}
-              />
-            ))}
-          </div>
-        )} */}
-
-        <div style={{ maxWidth: 1180, margin: "0 auto", paddingBottom: "40px" }}>
+        <div
+          style={{ maxWidth: 1180, margin: "0 auto", paddingBottom: "40px" }}
+        >
+          {/* Loading State */}
           {loading && <PlanSkeletonLoader />}
 
           {!loading && (
