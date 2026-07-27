@@ -95,7 +95,7 @@ export default function Step4CustomerInfo({
                   borderRadius: 10,
                   background: "rgba(255,255,255,0.04)",
                   border: touched.firstName && !isFirstNameValid ? "1px solid #f87171" : "1px solid var(--cw-border-1)",
-                  color: "#fff",
+                  color: "var(--cw-fg-2)",
                   fontSize: 15,
                   outline: "none",
                 }}
@@ -129,7 +129,7 @@ export default function Step4CustomerInfo({
                   borderRadius: 10,
                   background: "rgba(255,255,255,0.04)",
                   border: touched.lastName && !isLastNameValid ? "1px solid #f87171" : "1px solid var(--cw-border-1)",
-                  color: "#fff",
+                  color: "var(--cw-fg-2)",
                   fontSize: 15,
                   outline: "none",
                 }}
@@ -165,7 +165,7 @@ export default function Step4CustomerInfo({
                 borderRadius: 10,
                 background: "rgba(255,255,255,0.04)",
                 border: touched.email && !isEmailValid ? "1px solid #f87171" : "1px solid var(--cw-border-1)",
-                color: "#fff",
+                color: "var(--cw-fg-2)",
                 fontSize: 15,
                 outline: "none",
               }}
@@ -205,7 +205,7 @@ export default function Step4CustomerInfo({
                 borderRadius: 10,
                 background: "rgba(255,255,255,0.04)",
                 border: touched.phone && !isPhoneValid ? "1px solid #f87171" : "1px solid var(--cw-border-1)",
-                color: "#fff",
+                color: "var(--cw-fg-2)",
                 fontSize: 15,
                 outline: "none",
               }}
