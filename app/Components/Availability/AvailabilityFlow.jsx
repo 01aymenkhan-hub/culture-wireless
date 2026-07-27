@@ -97,7 +97,7 @@ export default function AvailabilityFlow() {
     !coverageResult.fiber &&
     !coverageResult.home5g &&
     !coverageResult.mobile;
-
+console.log(isHydrated)
   // Prevent flicker of Step 1 during SSR hydration / localStorage restoration
   if (!isHydrated) {
     return (

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Ico } from "../Icons";
 
 export default function Step6ReviewOrder({
@@ -43,20 +43,41 @@ export default function Step6ReviewOrder({
         return;
       } else {
         throw new Error(
-          data.error || "Unable to initialize checkout. Please check your details and try again.",
+          data.error ||
+            "Unable to initialize checkout. Please check your details and try again.",
         );
       }
     } catch (err) {
       console.error("Error creating Zoho hosted page:", err);
       setError(
-        err.message || "An unexpected error occurred. Please try again in a moment.",
+        err.message ||
+          "An unexpected error occurred. Please try again in a moment.",
       );
       setSubmitting(false);
     }
   };
 
+  useEffect(() => {
+    const handlePageShow = (e) => {
+      if (e.persisted) {
+        // BFCache se restore hua
+        setSubmitting(false);
+        setError(null);
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+    return () => window.removeEventListener("pageshow", handlePageShow);
+  }, []);
   return (
-    <div style={{ background: "var(--cw-bg-2)", minHeight: "100%", padding: "40px 24px 60px", position: "relative" }}>
+    <div
+      style={{
+        background: "var(--cw-bg-2)",
+        minHeight: "100%",
+        padding: "40px 24px 60px",
+        position: "relative",
+      }}
+    >
       {/* Full-Page Loading Overlay during Checkout Request */}
       {submitting && (
         <div
@@ -143,7 +164,14 @@ export default function Step6ReviewOrder({
             >
               Please wait while we connect you to our secure payment provider.
               <br />
-              <strong style={{ color: "var(--cw-fg-3)", display: "block", marginTop: 12, fontSize: 12 }}>
+              <strong
+                style={{
+                  color: "var(--cw-fg-3)",
+                  display: "block",
+                  marginTop: 12,
+                  fontSize: 12,
+                }}
+              >
                 Do not refresh or close this page.
               </strong>
             </p>
@@ -223,19 +251,56 @@ export default function Step6ReviewOrder({
               <Ico n="check-circle" size={14} color="var(--cw-purple)" />
               1. Selected Plan Details
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: 16,
+              }}
+            >
               <div>
-                <div style={{ fontFamily: "var(--cw-font-display)", fontSize: 20, fontWeight: 700, color: "var(--cw-fg-1)" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--cw-font-display)",
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: "var(--cw-fg-1)",
+                  }}
+                >
                   {selectedPlan?.displayName || selectedPlan?.name}
                 </div>
-                <div style={{ fontSize: 13, color: "var(--cw-fg-3)", marginTop: 4 }}>
-                  {selectedPlan?.categoryLabel || "Service Plan"} · {selectedPlan?.speed} {selectedPlan?.unit}
+                <div
+                  style={{
+                    fontSize: 13,
+                    color: "var(--cw-fg-3)",
+                    marginTop: 4,
+                  }}
+                >
+                  {selectedPlan?.categoryLabel || "Service Plan"} ·{" "}
+                  {selectedPlan?.speed} {selectedPlan?.unit}
                 </div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontFamily: "var(--cw-font-display)", fontSize: 28, fontWeight: 800, color: "var(--cw-fg-1)" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--cw-font-display)",
+                    fontSize: 28,
+                    fontWeight: 800,
+                    color: "var(--cw-fg-1)",
+                  }}
+                >
                   ${selectedPlan?.price}
-                  <small style={{ fontSize: 14, fontWeight: 400, color: "var(--cw-fg-3)" }}>/mo</small>
+                  <small
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      color: "var(--cw-fg-3)",
+                    }}
+                  >
+                    /mo
+                  </small>
                 </div>
                 {selectedPlan?.addonPrice > 0 && (
                   <div style={{ fontSize: 11, color: "var(--cw-fg-3)" }}>
@@ -272,7 +337,9 @@ export default function Step6ReviewOrder({
               <Ico n="map-pin" size={14} color="var(--cw-yellow)" />
               2. Service Address
             </div>
-            <div style={{ fontSize: 16, fontWeight: 600, color: "var(--cw-fg-1)" }}>
+            <div
+              style={{ fontSize: 16, fontWeight: 600, color: "var(--cw-fg-1)" }}
+            >
               {address?.formattedAddress || "No address provided"}
             </div>
           </div>
@@ -303,10 +370,19 @@ export default function Step6ReviewOrder({
               <Ico n="user" size={14} color="var(--cw-blue)" />
               3. Customer Information
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, fontSize: 16 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 12,
+                fontSize: 16,
+              }}
+            >
               <div>
                 <span style={{ color: "var(--cw-fg-3)" }}>Full Name: </span>
-                <strong>{customerInfo?.firstName} {customerInfo?.lastName}</strong>
+                <strong>
+                  {customerInfo?.firstName} {customerInfo?.lastName}
+                </strong>
               </div>
               <div>
                 <span style={{ color: "var(--cw-fg-3)" }}>Phone: </span>
@@ -345,13 +421,24 @@ export default function Step6ReviewOrder({
               <Ico n="headphones" size={14} color="var(--cw-purple)" />
               4. Current Service & Switching Info
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 16 }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+                fontSize: 16,
+              }}
+            >
               <div>
-                <span style={{ color: "var(--cw-fg-3)" }}>Current Provider: </span>
+                <span style={{ color: "var(--cw-fg-3)" }}>
+                  Current Provider:{" "}
+                </span>
                 <strong>{currentServiceInfo?.currentProvider}</strong>
               </div>
               <div>
-                <span style={{ color: "var(--cw-fg-3)" }}>Reason for Switching: </span>
+                <span style={{ color: "var(--cw-fg-3)" }}>
+                  Reason for Switching:{" "}
+                </span>
                 <strong>{currentServiceInfo?.switchingReason}</strong>
               </div>
             </div>
@@ -368,7 +455,11 @@ export default function Step6ReviewOrder({
             gap: 16,
           }}
         >
-          <button onClick={onBack} disabled={submitting} className="btn btn-ghost">
+          <button
+            onClick={onBack}
+            disabled={submitting}
+            className="btn btn-ghost"
+          >
             <Ico n="arrow-left" size={14} /> Back to Service Info
           </button>
 
@@ -412,4 +503,3 @@ export default function Step6ReviewOrder({
     </div>
   );
 }
-
