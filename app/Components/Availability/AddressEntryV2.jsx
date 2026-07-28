@@ -229,8 +229,14 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
     }
   };
 
-  const handleSubmit = () => {
-    if (!canSubmit) return;
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(null);
+
+  const handleSubmit = async () => {
+    if (!canSubmit || saving) return;
+
+    setSaving(true);
+    setSaveError(null);
 
     let streetAddress = "";
     let city = "";
@@ -252,7 +258,7 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
       state = parsed.state;
     }
 
-    onSubmit({
+    const payload = {
       formattedAddress: address.trim(),
       streetAddress,
       unit: unit.trim(),
@@ -262,7 +268,32 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
       latitude,
       longitude,
       serviceType: "home_internet",
-    });
+    };
+
+    try {
+      const res = await fetch("/api/availability/address", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.ok) {
+        throw new Error(
+          data.error || "Unable to save address to database. Please try again.",
+        );
+      }
+
+      // Address saved to MongoDB successfully! Proceed to Step 2
+      onSubmit(payload);
+    } catch (err) {
+      console.error("Error saving availability address to MongoDB:", err);
+      setSaveError(
+        err.message || "Failed to record your address. Please try again in a moment.",
+      );
+      setSaving(false);
+    }
   };
 
   const canSubmit = address.trim().length > 5 && zip.trim().length === 5;
@@ -649,22 +680,64 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
             </label>
           </div>
 
+          {saveError && (
+            <div
+              role="alert"
+              style={{
+                marginTop: 8,
+                padding: "14px 18px",
+                borderRadius: 12,
+                background: "rgba(239, 68, 68, 0.12)",
+                border: "1px solid rgba(239, 68, 68, 0.4)",
+                color: "#f87171",
+                fontSize: 14,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                animation: "cw-pop 200ms ease-out",
+              }}
+            >
+              <Ico n="x" size={16} color="#f87171" sw={3} />
+              <span style={{ flex: 1, lineHeight: 1.4 }}>{saveError}</span>
+            </div>
+          )}
+
           <button
             type="button"
             className="btn btn-primary btn-lg"
-            onClick={() => canSubmit && handleSubmit()}
+            onClick={() => canSubmit && !saving && handleSubmit()}
+            disabled={!canSubmit || saving}
             style={{
               marginTop: 8,
-              opacity: canSubmit ? 1 : 0.5,
-              pointerEvents: canSubmit ? "auto" : "none",
+              opacity: canSubmit && !saving ? 1 : 0.6,
+              pointerEvents: canSubmit && !saving ? "auto" : "none",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               gap: 10,
+              cursor: canSubmit && !saving ? "pointer" : "not-allowed",
             }}
           >
-            <span>Check my address</span>
-            <Ico n="arrow-right" size={16} />
+            {saving ? (
+              <>
+                <div
+                  style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: "50%",
+                    border: "2px solid rgba(255,255,255,0.3)",
+                    borderTopColor: "#fff",
+                    animation: "cwSpin 0.8s linear infinite",
+                  }}
+                />
+                <span>Saving address…</span>
+              </>
+            ) : (
+              <>
+                <span>Check my address</span>
+                <Ico n="arrow-right" size={16} />
+              </>
+            )}
           </button>
 
           <div
