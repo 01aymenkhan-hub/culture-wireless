@@ -17,7 +17,7 @@ export async function POST(req) {
 
   try {
     const body = await req.json().catch(() => ({}));
-    const { address, selectedPlan, customerInfo, currentServiceInfo, redirectUrl } = body;
+    const { address, selectedPlan, customerInfo, currentServiceInfo, redirectUrl, immediateBilling } = body;
 
     if (!selectedPlan) {
       return NextResponse.json(
@@ -32,6 +32,7 @@ export async function POST(req) {
       customerInfo,
       currentServiceInfo,
       redirectUrl,
+      immediateBilling,
     });
 
     if (!result.ok) {

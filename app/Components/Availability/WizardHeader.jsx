@@ -3,7 +3,7 @@
 import React from "react";
 import { Ico } from "../Icons";
 
-const STEP_LABELS = [
+const DEFAULT_STEP_LABELS = [
   "Service Address",
   "Checking Coverage",
   "Select a Plan",
@@ -12,9 +12,16 @@ const STEP_LABELS = [
   "Review Order",
 ];
 
-export default function WizardHeader({ step, onBack, hideBack = false }) {
-  const currentStep = Math.min(Math.max(step || 1, 1), 6);
-  const percent = Math.round(((currentStep - 1) / 5) * 100);
+export default function WizardHeader({
+  step,
+  onBack,
+  hideBack = false,
+  totalSteps = 6,
+  stepLabels = DEFAULT_STEP_LABELS,
+}) {
+  const currentStep = Math.min(Math.max(step || 1, 1), totalSteps);
+  const activeLabels = stepLabels && stepLabels.length > 0 ? stepLabels : DEFAULT_STEP_LABELS;
+  const stepNumbers = Array.from({ length: totalSteps }, (_, i) => i + 1);
 
   return (
     <div
@@ -22,9 +29,6 @@ export default function WizardHeader({ step, onBack, hideBack = false }) {
         background: "var(--cw-bg-2)",
         borderBottom: "1px solid var(--cw-border-1)",
         padding: "20px 24px",
-        // position: "sticky",
-        // top: 0,
-        // zIndex: 10,
       }}
     >
       <div
@@ -73,7 +77,7 @@ export default function WizardHeader({ step, onBack, hideBack = false }) {
               marginBottom: 4,
             }}
           >
-            Step {currentStep} of 6
+            Step {currentStep} of {totalSteps}
           </div>
           <div
             style={{
@@ -85,19 +89,19 @@ export default function WizardHeader({ step, onBack, hideBack = false }) {
               color: "var(--cw-fg-1)",
             }}
           >
-            {STEP_LABELS[currentStep - 1]}
+            {activeLabels[currentStep - 1] || `Step ${currentStep}`}
           </div>
         </div>
 
         {/* Progress Dots / Bar */}
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {[1, 2, 3, 4, 5, 6].map((s) => {
+          {stepNumbers.map((s) => {
             const isActive = s === currentStep;
             const isCompleted = s < currentStep;
             return (
               <div
                 key={s}
-                title={`Step ${s}: ${STEP_LABELS[s - 1]}`}
+                title={`Step ${s}: ${activeLabels[s - 1] || s}`}
                 style={{
                   width: isActive ? 24 : 10,
                   height: 10,

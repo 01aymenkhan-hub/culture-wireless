@@ -160,13 +160,13 @@ export default function Mobile() {
                     </div>
                   ))}
                 </div>
-                <button
-                  className={`btn btn-sm ${p.featured ? "btn-primary" : "btn-ghost"
-                    }`}
-                  style={{ marginTop: 8 }}
+                <Link
+                  href="/mobile/signup"
+                  className={`btn btn-sm ${p.featured ? "btn-primary" : "btn-ghost"}`}
+                  style={{ marginTop: 8, display: "inline-flex", textDecoration: "none", justifyContent: "center" }}
                 >
                   Choose {p.name}
-                </button>
+                </Link>
               </div>
             ))}
           </div>
@@ -368,10 +368,12 @@ export default function Mobile() {
             ))}
           </div>
           <div style={{ display: "flex", gap: 12, marginTop: 16, flexWrap: "wrap" }}>
-            <button className="btn btn-primary">
+            <Link href="/mobile/signup" className="btn btn-primary" style={{ textDecoration: "none" }}>
               Get Your e-SIM <Ico n="arrow-right" size={13} />
-            </button>
-            <button className="btn btn-ghost">Activate SIM</button>
+            </Link>
+            <Link href="/mobile/signup" className="btn btn-ghost" style={{ textDecoration: "none" }}>
+              Activate SIM
+            </Link>
           </div>
         </div>
       </section>
