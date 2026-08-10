@@ -6,6 +6,10 @@ import { Ico } from "../Icons";
 export default function Step6ReviewOrder({ enrollmentData, onBack }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const [resolvedLocation, setResolvedLocation] = useState(null);
+  const [resolvingLocation, setResolvingLocation] = useState(false);
+
+  const zipCode = (enrollmentData.zipCode || "").toString().trim();
 
   const plan = enrollmentData.selectedPlan || {
     plan_code: "CWM001",
@@ -20,6 +24,36 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
     email: "",
     phone: "",
   };
+
+  // Pre-resolve location via Google Maps API on mount so user sees resolved City, State, Country
+  useEffect(() => {
+    let isMounted = true;
+    if (zipCode && zipCode.length === 5) {
+      setResolvingLocation(true);
+      fetch("/api/google/geocode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ zipCode }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (isMounted && data.ok && data.address) {
+            setResolvedLocation(data.address);
+          }
+        })
+        .catch((err) => {
+          console.error("Google Maps pre-resolution notice:", err);
+        })
+        .finally(() => {
+          if (isMounted) setResolvingLocation(false);
+        });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [zipCode]);
+
+  console.log({ resolvedLocation })
 
   // Reset submitting state if user navigates back to page via browser BFCache
   useEffect(() => {
@@ -37,6 +71,34 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
     setError(null);
 
     try {
+      if (!zipCode || zipCode.length !== 5) {
+        throw new Error("A valid 5-digit ZIP code is required. Please go back and re-enter your ZIP code.");
+      }
+
+      // Step 1: Resolve customer's ZIP code into full address via Google Maps API
+      let addressData = resolvedLocation;
+
+      if (!addressData) {
+        const geocodeRes = await fetch("/api/google/geocode", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ zipCode }),
+        });
+
+        const geocodeData = await geocodeRes.json().catch(() => ({}));
+
+        if (!geocodeRes.ok || !geocodeData.ok || !geocodeData.address) {
+          throw new Error(
+            geocodeData.error ||
+            `Unable to resolve ZIP code "${zipCode}" with Google Maps API. Please check your ZIP code or go back and re-enter it.`
+          );
+        }
+
+        addressData = geocodeData.address;
+        setResolvedLocation(addressData);
+      }
+
+      // Step 2: Call /api/zoho/hostedpage with real Google Maps address
       const redirectUrl = `${window.location.origin}/mobile/activation`;
 
       const res = await fetch("/api/zoho/hostedpage", {
@@ -44,16 +106,18 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           address: {
-            zipCode: enrollmentData.zipCode || "",
-            streetAddress: `Service ZIP ${enrollmentData.zipCode || ""}`,
-            city: "",
-            state: "",
-            formattedAddress: `ZIP Code ${enrollmentData.zipCode || ""}`,
+            streetAddress: addressData.streetAddress,
+            city: addressData.city,
+            state: addressData.state,
+            zipCode: addressData.zipCode,
+            country: addressData.country || "USA",
+            formattedAddress: addressData.formattedAddress,
+            placeId: addressData.placeId || "",
           },
           selectedPlan: plan,
           customerInfo: customerInfo,
           redirectUrl: redirectUrl,
-          immediateBilling: true, // ✅ Immediate payment required for Telgoo
+          immediateBilling: true, // Immediate payment required for Telgoo
         }),
       });
 
@@ -119,7 +183,7 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
               className="btn btn-ghost btn-sm"
               style={{ color: "#f87171", border: "1px solid rgba(239,68,68,0.4)" }}
             >
-              Retry
+              Retry Checkout
             </button>
           </div>
         )}
@@ -168,7 +232,7 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
             </div>
           </div>
 
-          {/* Section 2: Coverage & Enrollment */}
+          {/* Section 2: Coverage & Google Maps Resolved Location */}
           <div
             style={{
               background: "var(--cw-bg-1)",
@@ -192,20 +256,33 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
               }}
             >
               <Ico n="map-pin" size={16} color="var(--cw-yellow)" />
-              2. Coverage & Enrollment ID
+              2. Coverage & Verified Address (Google Maps)
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, fontSize: 15 }}>
               <div>
                 <span style={{ color: "var(--cw-fg-3)" }}>Service ZIP Code: </span>
-                <strong style={{ color: "var(--cw-fg-1)" }}>{enrollmentData.zipCode || "30274"}</strong>
+                <strong style={{ color: "var(--cw-fg-1)" }}>{zipCode || "30274"}</strong>
               </div>
               <div>
-                <span style={{ color: "var(--cw-fg-3)" }}>Telgoo5 Enrollment ID: </span>
-                <strong style={{ color: "var(--cw-purple)", fontFamily: "var(--cw-font-display)" }}>
-                  {enrollmentData.enrollmentId || "ACUL410"}
-                </strong>
+                <span style={{ color: "var(--cw-fg-3)" }}>Verified Location: </span>
+                {resolvingLocation ? (
+                  <span style={{ color: "var(--cw-fg-3)", fontSize: 13 }}>Resolving Google Maps…</span>
+                ) : resolvedLocation ? (
+                  <strong style={{ color: "#4ade80" }}>
+                    {resolvedLocation.city}, {resolvedLocation.state} ({resolvedLocation.country})
+                  </strong>
+                ) : (
+                  <strong style={{ color: "var(--cw-purple)", fontFamily: "var(--cw-font-display)" }}>
+                    {enrollmentData.enrollmentId || "Verified"}
+                  </strong>
+                )}
               </div>
             </div>
+            {resolvedLocation?.formattedAddress && (
+              <div style={{ marginTop: 10, fontSize: 13, color: "var(--cw-fg-3)", borderTop: "1px solid var(--cw-border-1)", paddingTop: 10 }}>
+                Google Maps Formatted Address: <strong style={{ color: "var(--cw-fg-1)" }}>{resolvedLocation.formattedAddress}</strong>
+              </div>
+            )}
           </div>
 
           {/* Section 3: Selected Mobile Plan */}
@@ -443,7 +520,7 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
                       animation: "cwSpin 0.8s linear infinite",
                     }}
                   />
-                  <span>Preparing Secure Checkout…</span>
+                  <span>Resolving Google Address & Checkout…</span>
                 </>
               ) : (
                 <>
@@ -528,7 +605,7 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
                 margin: "0 0 10px",
               }}
             >
-              Preparing Secure Checkout
+              Resolving Address & Preparing Checkout
             </h3>
 
             <p
@@ -539,7 +616,7 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
                 margin: 0,
               }}
             >
-              Please wait while we connect you to our secure payment provider. Do not refresh or close this page.
+              Resolving your ZIP code with Google Maps API and connecting to secure payment server...
             </p>
           </div>
         </div>
