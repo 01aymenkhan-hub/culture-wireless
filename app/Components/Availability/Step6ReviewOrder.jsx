@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Ico } from "../Icons";
+import { useCheckoutAuth } from "../Auth/CheckoutAuth";
 
 export default function Step6ReviewOrder({
   address,
@@ -13,11 +14,18 @@ export default function Step6ReviewOrder({
 }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const { requireCheckoutAuthentication } = useCheckoutAuth();
 
   const handleProceedToCheckout = async () => {
     setSubmitting(true);
     setError(null);
     try {
+      const authResult = await requireCheckoutAuthentication();
+      if (!authResult.allowed) {
+        if (authResult.pending) setSubmitting(false);
+        return;
+      }
+
       const redirectUrl =
         typeof window !== "undefined"
           ? `${window.location.origin}/order-received`

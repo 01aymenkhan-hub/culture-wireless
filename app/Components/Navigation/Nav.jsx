@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "../../context/ThemeContext";
 import { Ico } from "../Icons";
+import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 
 const NAV_LINKS = [
   { path: "/fiber", label: "Home Internet" },
@@ -80,13 +81,23 @@ export default function Nav() {
                 <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
               </svg>
             </button>
-            <Link
-              href="/account"
-              className="btn btn-ghost btn-sm btn-hide-mob"
-              onClick={handleLinkClick}
-            >
-              <Ico n="user" size={13} /> Account
-            </Link>
+            <Show when="signed-out">
+              <SignInButton>
+                <button className="btn btn-ghost btn-sm btn-hide-mob" onClick={handleLinkClick}>
+                  <Ico n="user" size={13} /> Sign In
+                </button>
+              </SignInButton>
+            </Show>
+            <Show when="signed-in">
+              {/* <Link
+                href="/account"
+                className="btn btn-ghost btn-sm btn-hide-mob"
+                onClick={handleLinkClick}
+              >
+                <Ico n="user" size={13} /> Account
+              </Link> */}
+              <UserButton />
+            </Show>
             <Link
               href="/check-availability"
               className="btn btn-primary btn-sm btn-hide-mob"
@@ -155,14 +166,27 @@ export default function Nav() {
             >
               Check Availability
             </Link>
-            <Link
-              href="/account"
-              className="btn btn-ghost"
-              style={{ width: "100%", justifyContent: "center" }}
-              onClick={handleLinkClick}
-            >
-              My Account
-            </Link>
+            <Show when="signed-out">
+              <SignInButton>
+                <button
+                  className="btn btn-ghost"
+                  style={{ width: "100%", justifyContent: "center" }}
+                  onClick={handleLinkClick}
+                >
+                  Sign In
+                </button>
+              </SignInButton>
+            </Show>
+            <Show when="signed-in">
+              <Link
+                href="/account"
+                className="btn btn-ghost"
+                style={{ width: "100%", justifyContent: "center" }}
+                onClick={handleLinkClick}
+              >
+                My Account
+              </Link>
+            </Show>
           </div>
         </div>
       </div>

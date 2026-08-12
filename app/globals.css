@@ -151,6 +151,164 @@ select {
   font-family: inherit;
 }
 
+/* CLERK AUTHENTICATION -------------------------------------------------------
+ * The component classes below are assigned through Clerk's Appearance API in
+ * ClerkThemeProvider. They intentionally consume Culture Wireless variables,
+ * keeping Clerk in sync with the existing data-theme light/dark system.
+ */
+.clerk-auth-page {
+  min-height: calc(100vh - 180px);
+  display: grid;
+  place-items: center;
+  padding: 52px 24px;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(139, 105, 193, 0.1), transparent 44%),
+    radial-gradient(ellipse at 90% 100%, rgba(119, 163, 255, 0.1), transparent 42%),
+    var(--cw-bg-2);
+}
+.cw-clerk-root {
+  width: fit-content;
+}
+.cw-clerk-card-box {
+  width: 100%;
+}
+.cw-clerk-card {
+  width: 100%;
+  background: var(--cw-bg-1);
+  border: 1px solid var(--cw-border-1);
+  border-radius: var(--cw-radius-lg);
+  box-shadow: var(--cw-shadow-3);
+  padding: 32px;
+}
+.cw-clerk-title {
+  font-family: var(--cw-font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cw-fg-1);
+}
+.cw-clerk-subtitle,
+.cw-clerk-footer-text,
+.cw-clerk-identity-text {
+  color: var(--cw-fg-3);
+}
+.cw-clerk-label {
+  font-family: var(--cw-font-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cw-fg-2);
+}
+.cw-clerk-input {
+  min-height: 44px;
+  background: var(--cw-bg-2);
+  border: 1px solid var(--cw-border-2);
+  border-radius: 6px;
+  color: var(--cw-fg-1);
+  box-shadow: none;
+  transition: border-color var(--cw-dur-fast) var(--cw-ease-out), box-shadow var(--cw-dur-fast) var(--cw-ease-out);
+}
+.cw-clerk-input::placeholder {
+  color: var(--cw-fg-4);
+}
+.cw-clerk-input:focus,
+.cw-clerk-input:focus-within {
+  border-color: var(--cw-purple);
+  box-shadow: 0 0 0 3px rgba(139, 105, 193, 0.18);
+}
+.cw-clerk-input-action,
+.cw-clerk-link {
+  color: var(--cw-purple);
+}
+.cw-clerk-primary-button {
+  min-height: 44px;
+  border: 0;
+  border-radius: var(--cw-radius-md);
+  background: var(--cw-gradient);
+  color: #fff;
+  box-shadow: var(--cw-shadow-glow);
+  font-family: var(--cw-font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: transform var(--cw-dur-base) var(--cw-ease-out), box-shadow var(--cw-dur-base) var(--cw-ease-out);
+}
+.cw-clerk-primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(139, 105, 193, 0.45);
+}
+.cw-clerk-primary-button:focus-visible,
+.cw-clerk-social-button:focus-visible,
+.cw-clerk-user-menu-action:focus-visible {
+  outline: 2px solid var(--cw-blue);
+  outline-offset: 2px;
+}
+.cw-clerk-social-button {
+  min-height: 44px;
+  background: var(--cw-bg-1);
+  border: 1px solid var(--cw-border-2);
+  border-radius: var(--cw-radius-md);
+  color: var(--cw-fg-1);
+  transition: border-color var(--cw-dur-fast) var(--cw-ease-out), background var(--cw-dur-fast) var(--cw-ease-out);
+}
+.cw-clerk-social-button:hover {
+  border-color: var(--cw-purple);
+  background: var;
+}
+.cw-clerk-social-button-text {
+  color: var(--cw-fg-1);
+  font-weight: 600;
+}
+.cw-clerk-divider-line {
+  background: var(--cw-border-1);
+}
+.cw-clerk-divider-text {
+  color: var(--cw-fg-4);
+  font-family: var(--cw-font-display);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.cw-clerk-link:hover {
+  color: var(--cw-blue);
+}
+.cw-clerk-error-text,
+.cw-clerk-alert-text {
+  color: var(--cw-error);
+}
+.cw-clerk-avatar {
+  border: 2px solid var(--cw-purple);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(139, 105, 193, 0.14);
+}
+.cw-clerk-user-menu {
+  background: var(--cw-bg-1);
+  border: 1px solid var(--cw-border-1);
+  border-radius: var(--cw-radius-lg);
+  box-shadow: var(--cw-shadow-3);
+}
+.cw-clerk-user-menu-action,
+.cw-clerk-user-menu-action-text {
+  color: var(--cw-fg-1);
+}
+.cw-clerk-user-menu-action:hover {
+  background: var(--cw-bg-2);
+  color: var(--cw-purple);
+}
+@media (max-width: 520px) {
+  .clerk-auth-page {
+    min-height: calc(100vh - 140px);
+    padding: 32px 16px;
+  }
+  .cw-clerk-card {
+    padding: 24px 20px;
+    border-radius: var(--cw-radius-md);
+  }
+}
+
 /* THEME TOGGLE */
 .theme-toggle {
   width: 38px;

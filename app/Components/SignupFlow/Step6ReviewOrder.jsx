@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { Ico } from "../Icons";
+import { useCheckoutAuth } from "../Auth/CheckoutAuth";
 
 export default function Step6ReviewOrder({ enrollmentData, onBack }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [resolvedLocation, setResolvedLocation] = useState(null);
   const [resolvingLocation, setResolvingLocation] = useState(false);
+  const { requireCheckoutAuthentication } = useCheckoutAuth();
 
   const zipCode = (enrollmentData.zipCode || "").toString().trim();
 
@@ -71,6 +73,12 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
     setError(null);
 
     try {
+      const authResult = await requireCheckoutAuthentication();
+      if (!authResult.allowed) {
+        if (authResult.pending) setSubmitting(false);
+        return;
+      }
+
       if (!zipCode || zipCode.length !== 5) {
         throw new Error("A valid 5-digit ZIP code is required. Please go back and re-enter your ZIP code.");
       }
