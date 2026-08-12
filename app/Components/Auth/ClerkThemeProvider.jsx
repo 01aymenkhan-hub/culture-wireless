@@ -67,6 +67,17 @@ function createAppearance(theme) {
       formFieldErrorText: "cw-clerk-error-text",
       alertText: "cw-clerk-alert-text",
       identityPreviewText: "cw-clerk-identity-text",
+      // User profile modal: email's Primary badge and connected-account rows.
+      badge: "cw-clerk-profile-badge",
+      profileSectionItem: "cw-clerk-profile-item",
+      profileSectionItemText: "cw-clerk-profile-item-text",
+      profileSectionItemPrimary: "cw-clerk-profile-item-primary",
+      profileSectionTitle: "cw-clerk-profile-section-title",
+      profileSectionPrimaryButton: "cw-clerk-profile-action",
+      // “Connect account” opens this menu in a portal outside the profile row.
+      menuList: "cw-clerk-provider-menu",
+      menuItem: "cw-clerk-provider-menu-item",
+      menuItemText: "cw-clerk-provider-menu-item-text",
       userButtonAvatarBox: "cw-clerk-avatar",
       userButtonPopoverCard: "cw-clerk-user-menu",
       userButtonPopoverActionButton: "cw-clerk-user-menu-action",

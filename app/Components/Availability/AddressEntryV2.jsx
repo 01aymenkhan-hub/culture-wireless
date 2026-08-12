@@ -771,9 +771,12 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
           background: "var(--cw-navy-deep)",
           color: "#fff",
           display: "flex",
-          alignItems: "stretch",
+          alignItems: "center",
+          justifyContent: "center",
           padding: "0 56px",
           borderTop: "1px solid rgba(255,255,255,0.06)",
+          maxWidth: "1280px",
+          margin: "0 auto",
         }}
         className="stats-strip"
       >

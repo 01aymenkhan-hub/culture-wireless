@@ -12,7 +12,6 @@ const NAV_LINKS = [
   { path: "/mobile", label: "Mobile" },
   { path: "/about", label: "About" },
   { path: "/support", label: "Support" },
-  { path: "/account", label: "My Account" },
 ];
 
 export default function Nav() {
@@ -89,13 +88,6 @@ export default function Nav() {
               </SignInButton>
             </Show>
             <Show when="signed-in">
-              {/* <Link
-                href="/account"
-                className="btn btn-ghost btn-sm btn-hide-mob"
-                onClick={handleLinkClick}
-              >
-                <Ico n="user" size={13} /> Account
-              </Link> */}
               <UserButton />
             </Show>
             <Link
@@ -178,14 +170,9 @@ export default function Nav() {
               </SignInButton>
             </Show>
             <Show when="signed-in">
-              <Link
-                href="/account"
-                className="btn btn-ghost"
-                style={{ width: "100%", justifyContent: "center" }}
-                onClick={handleLinkClick}
-              >
-                My Account
-              </Link>
+              <div style={{ display: "flex", justifyContent: "center", padding: 8 }}>
+                <UserButton />
+              </div>
             </Show>
           </div>
         </div>

@@ -1,5 +1,3 @@
-
-
 /* -----------------------------------------------------------------------------
  * Tailwind CSS v4 — utility layer.
  * The Culture Wireless design system (below) uses CSS variables and hand-written
@@ -162,8 +160,16 @@ select {
   place-items: center;
   padding: 52px 24px;
   background:
-    radial-gradient(ellipse at 15% 10%, rgba(139, 105, 193, 0.1), transparent 44%),
-    radial-gradient(ellipse at 90% 100%, rgba(119, 163, 255, 0.1), transparent 42%),
+    radial-gradient(
+      ellipse at 15% 10%,
+      rgba(139, 105, 193, 0.1),
+      transparent 44%
+    ),
+    radial-gradient(
+      ellipse at 90% 100%,
+      rgba(119, 163, 255, 0.1),
+      transparent 42%
+    ),
     var(--cw-bg-2);
 }
 .cw-clerk-root {
@@ -208,7 +214,9 @@ select {
   border-radius: 6px;
   color: var(--cw-fg-1);
   box-shadow: none;
-  transition: border-color var(--cw-dur-fast) var(--cw-ease-out), box-shadow var(--cw-dur-fast) var(--cw-ease-out);
+  transition:
+    border-color var(--cw-dur-fast) var(--cw-ease-out),
+    box-shadow var(--cw-dur-fast) var(--cw-ease-out);
 }
 .cw-clerk-input::placeholder {
   color: var(--cw-fg-4);
@@ -234,7 +242,9 @@ select {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  transition: transform var(--cw-dur-base) var(--cw-ease-out), box-shadow var(--cw-dur-base) var(--cw-ease-out);
+  transition:
+    transform var(--cw-dur-base) var(--cw-ease-out),
+    box-shadow var(--cw-dur-base) var(--cw-ease-out);
 }
 .cw-clerk-primary-button:hover {
   transform: translateY(-2px);
@@ -252,7 +262,6 @@ select {
   border: 1px solid var(--cw-border-2);
   border-radius: var(--cw-radius-md);
   color: var(--cw-fg-1);
-  transition: border-color var(--cw-dur-fast) var(--cw-ease-out), background var(--cw-dur-fast) var(--cw-ease-out);
 }
 .cw-clerk-social-button:hover {
   border-color: var(--cw-purple);
@@ -278,6 +287,78 @@ select {
 .cw-clerk-error-text,
 .cw-clerk-alert-text {
   color: var(--cw-error);
+}
+/* UserProfile is rendered by the UserButton's “Manage account” action. The
+ * profile item mapping handles provider names (Apple, X / Twitter) while the
+ * badge mapping handles the small “Primary” label next to email addresses. */
+.cw-clerk-profile-item,
+.cw-clerk-profile-item-text,
+.cw-clerk-profile-item-primary {
+  color: var(--cw-fg-1);
+}
+.cw-clerk-profile-section-title {
+  color: var(--cw-fg-1);
+}
+.cw-clerk-profile-badge {
+  background: rgba(139, 105, 193, 0.16);
+  border: 1px solid rgba(139, 105, 193, 0.38);
+  border-radius: var(--cw-radius-sm);
+  color: var(--cw-purple);
+  font-family: var(--cw-font-display);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cw-clerk-profile-action {
+  color: var(--cw-purple);
+}
+.cw-clerk-profile-action:hover {
+  color: var(--cw-blue);
+}
+/* Clerk keeps stable `cl-*` classes on the profile overlay. These ensure the
+ * modal's internally composed account rows receive the same token-driven
+ * colors even where a nested element cannot inherit its appearance mapping. */
+.cl-userProfileModal .cl-badge,
+.cl-userProfile .cl-badge {
+  background: rgba(139, 105, 193, 0.16);
+  border-color: rgba(139, 105, 193, 0.38);
+  color: var(--cw-purple);
+}
+.cl-userProfileModal .cl-profileSectionItemText,
+.cl-userProfile .cl-profileSectionItemText,
+.cl-userProfileModal .cl-profileSectionItemPrimary,
+.cl-userProfile .cl-profileSectionItemPrimary {
+  color: var(--cw-fg-1);
+}
+/* Some providers render their name inside an additional nested text node,
+ * rather than Clerk's profileSectionItemText descriptor. Color the complete
+ * profile row so Apple and X / Twitter cannot fall back to Clerk's black
+ * default in our navy dark mode. */
+.cl-userProfileModal .cl-profileSectionItem,
+.cl-userProfileModal .cl-profileSectionItem *,
+.cl-userProfile .cl-profileSectionItem,
+.cl-userProfile .cl-profileSectionItem * {
+  color: var(--cw-fg-1) !important;
+}
+/* The Apple and X / Twitter choices appear in Clerk's detached `menuList`
+ * portal after “Connect account”, not inside the UserProfile DOM subtree. */
+.cw-clerk-provider-menu,
+.cl-menuList {
+  background: var(--cw-bg-1);
+  border: 1px solid var(--cw-border-1);
+  border-radius: var(--cw-radius-md);
+  box-shadow: var(--cw-shadow-2);
+}
+.cw-clerk-provider-menu-item,
+.cw-clerk-provider-menu-item *,
+.cl-menuList .cl-menuItem,
+.cl-menuList .cl-menuItem * {
+  color: var(--cw-fg-1) !important;
+}
+.cw-clerk-provider-menu-item:hover,
+.cl-menuList .cl-menuItem:hover {
+  background: var(--cw-bg-2);
 }
 .cw-clerk-avatar {
   border: 2px solid var(--cw-purple);
