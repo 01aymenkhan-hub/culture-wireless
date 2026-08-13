@@ -1,13 +1,14 @@
 "use client";
 
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useClerk } from "@clerk/nextjs";
 
 /**
  * A shared client-side checkout gate for both public wizards. It is only a
  * UX gate; the hosted-checkout Route Handler independently verifies auth.
  */
 export function useCheckoutAuth() {
-  const { isLoaded, isSignedIn, redirectToSignIn } = useAuth();
+  const { isLoaded, isSignedIn } = useAuth();
+  const { redirectToSignIn } = useClerk();
 
   async function requireCheckoutAuthentication() {
     if (!isLoaded) {
