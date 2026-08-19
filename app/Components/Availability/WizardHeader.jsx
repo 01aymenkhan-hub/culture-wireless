@@ -66,7 +66,7 @@ export default function WizardHeader({
                 <Ico n="arrow-left" size={14} /> Back
               </button>
             ) : (
-              <div style={{ width: 60 }} />
+              <div className="wizard-spacer" style={{ width: 60 }} />
             )}
           </div>
 
@@ -98,7 +98,7 @@ export default function WizardHeader({
             </div>
           </div>
 
-          <div style={{ width: 60 }} />
+          <div className="wizard-spacer" style={{ width: 60 }} />
         </div>
 
         {/* Bottom Row: 6-step progress pills */}

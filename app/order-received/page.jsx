@@ -306,21 +306,21 @@ function OrderReceivedContent() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 14, fontSize: 14 }}>
             {/* Customer Name */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div className="order-summary-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ color: "var(--cw-fg-3)" }}>Customer Name:</span>
               <strong style={{ color: "var(--cw-fg-1)" }}>{displayCustomerName}</strong>
             </div>
 
             {/* Email */}
             {displayEmail && (
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div className="order-summary-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ color: "var(--cw-fg-3)" }}>Email Address:</span>
                 <strong style={{ color: "var(--cw-fg-1)" }}>{displayEmail}</strong>
               </div>
             )}
 
             {/* Service Address */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
+            <div className="order-summary-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
               <span style={{ color: "var(--cw-fg-3)", flexShrink: 0 }}>Service Address:</span>
               <strong style={{ color: "var(--cw-fg-1)", textAlign: "right", maxWidth: 360 }}>
                 {fullAddressDisplay}
@@ -329,14 +329,14 @@ function OrderReceivedContent() {
 
             {/* Product / Service */}
             {productName && (
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div className="order-summary-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ color: "var(--cw-fg-3)" }}>Selected Service:</span>
                 <strong style={{ color: "var(--cw-fg-1)" }}>{productName}</strong>
               </div>
             )}
 
             {/* Purchased Plan */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div className="order-summary-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ color: "var(--cw-fg-3)" }}>Purchased Plan:</span>
               <strong style={{ color: "var(--cw-fg-1)" }}>
                 {planName} {planPrice ? `(${planPrice})` : ""}
@@ -352,10 +352,8 @@ function OrderReceivedContent() {
                 {addons.map((addon) => (
                   <div
                     key={addon.addon_id || addon.addon_code}
+                    className="order-summary-row"
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
                       paddingLeft: 12,
                       marginBottom: 6,
                       fontSize: 13.5,
@@ -374,6 +372,7 @@ function OrderReceivedContent() {
 
             {/* Total Recurring */}
             <div
+              className="order-summary-row"
               style={{
                 borderTop: "1px solid var(--cw-border-1)",
                 paddingTop: 14,
@@ -393,7 +392,7 @@ function OrderReceivedContent() {
 
             {/* Start Date */}
             {startDate && (
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 13 }}>
+              <div className="order-summary-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 13 }}>
                 <span style={{ color: "var(--cw-fg-3)" }}>Subscription Start Date:</span>
                 <span style={{ color: "var(--cw-fg-2)", fontWeight: 600 }}>{startDate}</span>
               </div>

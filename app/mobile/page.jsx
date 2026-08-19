@@ -389,7 +389,7 @@ export default function Mobile() {
           </p>
           <div
             style={{
-              display: "grid",
+              display: "none",
               gridTemplateColumns: "repeat(6,1fr)",
               gap: 10,
               marginTop: 12,

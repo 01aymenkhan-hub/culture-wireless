@@ -87,6 +87,7 @@ function ActivationContent() {
 
   return (
     <div
+      className="activation-page-wrapper"
       style={{
         minHeight: "100vh",
         background: "var(--cw-bg-2)",
@@ -493,7 +494,7 @@ function ActivationContent() {
                 Subscription Summary
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, fontSize: 14 }}>
+              <div className="grid-2-to-1" style={{ gap: 12, fontSize: 14 }}>
                 <div>
                   <span style={{ color: "var(--cw-fg-3)" }}>Plan: </span>
                   <strong style={{ color: "var(--cw-fg-1)" }}>{activationData.planName}</strong>
@@ -504,7 +505,7 @@ function ActivationContent() {
                 </div>
                 <div>
                   <span style={{ color: "var(--cw-fg-3)" }}>Email: </span>
-                  <strong style={{ color: "var(--cw-fg-1)" }}>{activationData.customerEmail}</strong>
+                  <strong style={{ color: "var(--cw-fg-1)", wordBreak: "break-all" }}>{activationData.customerEmail}</strong>
                 </div>
                 <div>
                   <span style={{ color: "var(--cw-fg-3)" }}>Status: </span>

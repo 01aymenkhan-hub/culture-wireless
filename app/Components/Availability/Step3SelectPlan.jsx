@@ -403,6 +403,7 @@ export default function Step3SelectPlan({
         </div>
 
         <div
+          className="plan-section-container"
           style={{ maxWidth: 1180, margin: "0 auto", paddingBottom: "40px" }}
         >
           {/* Loading State */}
