@@ -21,9 +21,9 @@ const jost = Jost({
 });
 
 export const metadata = {
-  title: "Culture Wireless — Fiber + Mobile",
+  title: "Culture Wireless",
   description:
-    "Affordable, reliable fiber internet and nationwide 5G mobile for the communities we serve. Connecting the unserved, underserved, and unconnected.",
+    "Culture Wireless - Reliable & Affordable Connectivity",
   metadataBase: undefined,
 };
 
