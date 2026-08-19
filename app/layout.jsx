@@ -21,9 +21,9 @@ const jost = Jost({
 });
 
 export const metadata = {
-  title: "Culture Wireless",
+  title: "Culture Wireless - Reliable & Affordable Connectivity",
   description:
-    "Culture Wireless - Reliable & Affordable Connectivity",
+    "Culture Wireless is on a mission to close the digital divide. We provide affordable internet services to communities that need. Available In Clayton County, GA ...",
   metadataBase: undefined,
 };
 
