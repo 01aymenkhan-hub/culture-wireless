@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <div>
+        <div className="footer-brand-block">
           <div className="footer-brand">
             <img
               src="/assets/logos/full_logo_transparent_background_250.png"
@@ -12,17 +12,10 @@ export default function Footer() {
               style={{ filter: "brightness(10)" }}
             />
           </div>
-          <div className="footer-copy" style={{ marginTop: 8 }}>
+          <div className="footer-copy">
             © 2026 Culture Wireless · All rights reserved
           </div>
         </div>
-        {/* <div className="footer-links">
-          <Link href="/fiber">Home Internet</Link>
-          <Link href="/mobile">Mobile</Link>
-          <Link href="/about">About</Link>
-          <Link href="/support">Support</Link>
-          <Link href="/account">My Account</Link>
-        </div> */}
 
         <div className="footer-links">
           <Link href="/fiber">Home Internet</Link>
@@ -31,18 +24,18 @@ export default function Footer() {
           <Link href="/support">Support</Link>
           <Link href="/account">My Account</Link>
         </div>
-        <div style={{ textAlign: "right" }}>
+
+        <div className="footer-tagline-block">
           <div
             style={{
               fontFamily: "var(--cw-font-display)",
               fontSize: 11,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.55)",
+              color: "rgba(255,255,255,0.65)",
             }}
           >
-            <span style={{ color: "var(--cw-yellow)" }}>Authentic</span> · Expert ·
-            Connected
+            <span style={{ color: "var(--cw-yellow)" }}>Authentic</span> · Expert · Connected
           </div>
           <div
             style={{
@@ -51,7 +44,7 @@ export default function Footer() {
               fontSize: 10,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.4)",
+              color: "rgba(255,255,255,0.45)",
             }}
           >
             Unserved · Underserved · Unconnected

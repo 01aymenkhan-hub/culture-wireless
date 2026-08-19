@@ -456,7 +456,7 @@ select {
   gap: 10px;
 }
 .brand img {
-  height: 38px;
+  height: 46px;
   width: auto;
 }
 .nav-links {
@@ -855,8 +855,9 @@ h1.cw-display {
   flex-wrap: wrap;
 }
 .footer-brand img {
-  height: 32px;
-  opacity: 0.85;
+  height: 42px;
+  width: auto;
+  opacity: 0.95;
 }
 .footer-links {
   display: flex;
@@ -1115,7 +1116,8 @@ h1.cw-display {
 }
 
 /* CARDS */
-.card-grid-3 {
+.card-grid-3,
+.card-grid-3-skel {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
@@ -1998,17 +2000,32 @@ textarea.form-input {
   color: #fff;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE SYSTEM -------------------------------------------------------- */
+
+/* Helper class for 2-column forms/dropdowns that collapse to 1 column on mobile */
+.grid-2-to-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 1024px) {
+  .card-grid-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 900px) {
+  .brand img {
+    height: 40px;
+  }
   .card-grid-3,
-  .mob-plans {
+  .mob-plans,
+  .card-grid-3-skel {
     grid-template-columns: 1fr 1fr;
   }
   .card-grid-4 {
     grid-template-columns: 1fr 1fr;
-  }
-  .card-grid-5 {
-    grid-template-columns: repeat(3, 1fr);
   }
   .two-col {
     grid-template-columns: 1fr;
@@ -2019,20 +2036,43 @@ textarea.form-input {
   .step-container {
     padding: 36px 24px 48px;
   }
-}
-@media (max-width: 600px) {
-  .card-grid-3,
-  .card-grid-2,
-  .mob-plans,
-  .card-grid-4,
-  .card-grid-5 {
+
+  /* Tablet Footer Layout */
+  .footer-inner {
+    display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+    align-items: start;
   }
+  .footer-brand-block {
+    grid-column: span 1;
+  }
+  .footer-links {
+    grid-column: span 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-tagline-block {
+    grid-column: span 2;
+    text-align: left !important;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .footer-brand img {
+    height: 38px;
+  }
+}
+
+@media (max-width: 600px) {
   .hero {
-    padding: 72px 20px;
+    padding: 64px 20px 40px;
   }
   .hero h1 {
-    font-size: clamp(44px, 11vw, 88px);
+    font-size: clamp(34px, 8.5vw, 64px);
+  }
+  .hero-lede {
+    font-size: 16px;
   }
   .page-section {
     padding: 36px 20px;
@@ -2041,19 +2081,25 @@ textarea.form-input {
     padding: 12px 16px;
   }
   .result-banner {
-    padding: 48px 20px 64px;
+    padding: 44px 20px 56px;
   }
   .imei-row {
     flex-direction: column;
   }
+  .imei-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
   .stats-bar {
-    gap: 28px;
+    gap: 24px;
+    margin-top: 36px;
+    padding-top: 24px;
   }
   .map-section {
-    padding: 40px 16px;
+    padding: 36px 16px;
   }
   .step-container {
-    padding: 28px 16px 40px;
+    padding: 24px 16px 36px;
     max-width: 100%;
   }
   .review-section {
@@ -2066,6 +2112,106 @@ textarea.form-input {
   .success-page {
     padding: 40px 20px;
   }
+
+  /* Mobile Footer Layout */
+  .footer {
+    padding: 44px 20px 32px;
+  }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 28px;
+  }
+  .footer-brand-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-brand img {
+    height: 34px;
+    margin: 0 auto;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 20px;
+  }
+  .footer-links a {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  .footer-tagline-block {
+    text-align: center !important;
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .footer-copy {
+    text-align: center;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  /* On phones <= 520px, card grids collapse to 1 column for full width and readability */
+  .card-grid-3,
+  .card-grid-2,
+  .mob-plans,
+  .card-grid-4,
+  .card-grid-5,
+  .card-grid-3-skel,
+  .grid-2-to-1 {
+    grid-template-columns: 1fr;
+  }
+  .hero-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-btns .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .brand img {
+    height: 34px;
+  }
+  .page-h1 {
+    font-size: clamp(30px, 8vw, 64px);
+  }
+  .page-header {
+    padding: 36px 16px 0;
+  }
+  .page-lede {
+    font-size: 15px;
+  }
+  .btn-lg {
+    padding: 13px 20px;
+    font-size: 11px;
+    width: 100%;
+    justify-content: center;
+  }
+  .form-input,
+  .wf-input {
+    font-size: 16px; /* Prevents auto-zoom on iOS safari */
+  }
+}
+
+@media (max-width: 380px) {
+  .nav {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+  .brand img {
+    height: 30px;
+  }
+  .theme-toggle,
+  .mob-toggle {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 @keyframes cwSpin {
@@ -2076,3 +2222,5 @@ textarea.form-input {
     transform: rotate(360deg);
   }
 }
+
+

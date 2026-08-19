@@ -379,10 +379,8 @@ export default function Step6ReviewOrder({
               3. Customer Information
             </div>
             <div
+              className="grid-2-to-1"
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 12,
                 fontSize: 16,
               }}
             >
@@ -461,6 +459,7 @@ export default function Step6ReviewOrder({
             alignItems: "center",
             justifyContent: "space-between",
             gap: 16,
+            flexWrap: "wrap",
           }}
         >
           <button

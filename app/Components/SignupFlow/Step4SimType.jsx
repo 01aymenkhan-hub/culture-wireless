@@ -56,8 +56,8 @@ export default function Step4SimType({
             gap: 20,
           }}
         >
-          {/* Two Cards Container */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          {/* SIM Type Cards */}
+          <div className="grid-2-to-1">
 
             {/* Left Card: eSIM (ENABLED) */}
             <div

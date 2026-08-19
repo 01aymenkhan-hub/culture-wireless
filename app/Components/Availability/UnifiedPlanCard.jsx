@@ -100,7 +100,7 @@ export default function UnifiedPlanCard({
           <span
             style={{
               fontFamily: "var(--cw-font-display)",
-              fontSize: 54,
+              fontSize: "clamp(36px, 9vw, 54px)",
               fontWeight: 800,
               letterSpacing: "0.01em",
               lineHeight: 1,

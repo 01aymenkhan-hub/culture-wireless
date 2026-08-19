@@ -76,8 +76,8 @@ export default function Step5CustomerInfo({
         >
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             
-            {/* First & Last Name Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            {/* First & Last Name */}
+            <div className="grid-2-to-1">
               {/* First Name */}
               <div>
                 <label

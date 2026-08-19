@@ -54,7 +54,7 @@ export default function Step3YourNumber({
           }}
         >
           {/* Option Cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="grid-2-to-1">
             
             {/* Keep Number Card — DISABLED with Coming Soon */}
             <div

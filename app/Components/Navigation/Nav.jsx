@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "../../context/ThemeContext";
 import { Ico } from "../Icons";
 import { Show, SignInButton, UserButton } from "@clerk/nextjs";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { path: "/fiber", label: "Home Internet" },
@@ -28,7 +29,9 @@ export default function Nav() {
       <div className="nav-wrap">
         <nav className="nav">
           <Link href="/" className="brand" onClick={handleLinkClick}>
-            <img
+            <Image
+              width={350}
+              height={100}
               src="/assets/logos/full_logo_transparent_background_250.png"
               alt="Culture Wireless"
             />
@@ -119,7 +122,7 @@ export default function Nav() {
             <img
               src="/assets/logos/full_logo_transparent_background_250.png"
               alt="Culture Wireless"
-              style={{ height: 30 }}
+              style={{ height: 36 }}
             />
             <button
               className="mob-toggle"

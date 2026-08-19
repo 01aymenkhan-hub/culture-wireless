@@ -161,14 +161,7 @@ export default function PlanSkeletonLoader() {
       <section>
         <SkeletonSectionHeader />
         {/* 3-column grid matching .card-grid-3 */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 16,
-          }}
-          className="card-grid-3-skel"
-        >
+        <div className="card-grid-3-skel" style={{ gap: 16 }}>
           <SkeletonCard featuresCount={3} hasBadge={false} />
           <SkeletonCard featuresCount={4} hasBadge={true} />
           <SkeletonCard featuresCount={4} hasBadge={false} />
@@ -179,14 +172,7 @@ export default function PlanSkeletonLoader() {
       <section>
         <SkeletonSectionHeader />
         {/* Single card, max-width 380 matching the real layout */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 16,
-          }}
-          className="card-grid-3-skel"
-        >
+        <div className="card-grid-3-skel" style={{ gap: 16 }}>
           <SkeletonCard featuresCount={4} hasBadge={true} />
           <SkeletonCard featuresCount={4} hasBadge={false} />
           <SkeletonCard featuresCount={4} hasBadge={false} />
@@ -196,23 +182,10 @@ export default function PlanSkeletonLoader() {
       {/* ── 5G MOBILE SECTION ─────────────────────────────────────────────── */}
       <section>
         <SkeletonSectionHeader />
-        {/*
-          5 mobile plans: first row 3 cards, second row 2 cards.
-          Using CSS grid auto-fill with the same column size so it wraps
-          naturally, exactly like the screenshot.
-        */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 16,
-          }}
-        >
+        <div className="card-grid-3-skel" style={{ gap: 16 }}>
           <SkeletonCard featuresCount={4} hasBadge={false} />
           <SkeletonCard featuresCount={4} hasBadge={false} />
           <SkeletonCard featuresCount={4} hasBadge={true} />
-          {/* empty third cell in row 2 — keeps grid balanced */}
-          <div />
         </div>
       </section>
 

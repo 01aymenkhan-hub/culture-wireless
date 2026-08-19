@@ -470,7 +470,7 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
               <Ico n="user" size={16} color="var(--cw-purple)" />
               6. Customer Information
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, fontSize: 15 }}>
+            <div className="grid-2-to-1" style={{ fontSize: 15 }}>
               <div>
                 <span style={{ color: "var(--cw-fg-3)" }}>Name: </span>
                 <strong style={{ color: "var(--cw-fg-1)" }}>
@@ -496,6 +496,7 @@ export default function Step6ReviewOrder({ enrollmentData, onBack }) {
               alignItems: "center",
               justifyContent: "space-between",
               gap: 16,
+              flexWrap: "wrap",
             }}
           >
             <button onClick={onBack} disabled={submitting} className="btn btn-ghost">

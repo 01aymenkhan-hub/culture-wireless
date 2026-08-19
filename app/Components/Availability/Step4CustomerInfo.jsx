@@ -67,7 +67,7 @@ export default function Step4CustomerInfo({
           }}
         >
           {/* First & Last Name */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="grid-2-to-1">
             <div>
               <label
                 style={{

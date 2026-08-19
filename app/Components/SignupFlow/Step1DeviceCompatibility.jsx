@@ -100,7 +100,7 @@ export default function Step1DeviceCompatibility({ enrollmentData, updateEnrollm
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             
             {/* Dropdowns Row */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div className="grid-2-to-1">
               
               {/* Brand Dropdown */}
               <div>
