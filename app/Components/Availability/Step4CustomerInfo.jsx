@@ -60,7 +60,7 @@ export default function Step4CustomerInfo({
             background: "var(--cw-bg-1)",
             border: "1.5px solid var(--cw-border-1)",
             borderRadius: 20,
-            padding: 32,
+            padding: 22,
             display: "flex",
             flexDirection: "column",
             gap: 20,
@@ -222,8 +222,9 @@ export default function Step4CustomerInfo({
         <div
           style={{
             marginTop: 32,
-            display: "flex",
-            alignItems: "center",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            alignItems: "start",
             justifyContent: "space-between",
             gap: 16,
           }}

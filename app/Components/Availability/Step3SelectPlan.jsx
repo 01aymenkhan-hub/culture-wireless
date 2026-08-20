@@ -328,21 +328,7 @@ export default function Step3SelectPlan({
                   marginBottom: 20,
                 }}
               >
-                {fiberAvailable && (
-                  <StatusPill available label="Fiber · On-net" />
-                )}
-                {home5gAvailable && home5gStatus === "caution" && (
-                  <StatusPill available caution label="5G Home · Caution" />
-                )}
-                {home5gAvailable && home5gStatus !== "caution" && (
-                  <StatusPill available label="5G Home · Available" />
-                )}
-                {mobileAvailable && (
-                  <StatusPill available label="5G Mobile · Available" />
-                )}
-                {!fiberAvailable && (
-                  <StatusPill available={false} label="Fiber · Off-net" />
-                )}
+                <StatusPill available label="Fiber · On-net" />
               </div>
               <h1
                 style={{
@@ -355,19 +341,9 @@ export default function Step3SelectPlan({
                   margin: "0 0 16px",
                 }}
               >
-                {fiberAvailable ? (
-                  <>
-                    Good news — we&rsquo;re
-                    <br />
-                    <span className="cw-gradient-text">live in your area.</span>
-                  </>
-                ) : (
-                  <>
-                    We&rsquo;ve got you
-                    <br />
-                    <span className="cw-gradient-text">covered on 5G.</span>
-                  </>
-                )}
+                Good news — we&rsquo;re
+                <br />
+                <span className="cw-gradient-text">live in your area.</span>
               </h1>
               <div
                 style={{
@@ -383,7 +359,7 @@ export default function Step3SelectPlan({
                 }}
               >
                 <Ico n="map-pin" size={15} color="#FFB900" />
-                <span>{address.formattedAddress}</span>
+                <span>{address?.formattedAddress || address?.streetAddress}</span>
               </div>
               <p
                 style={{
@@ -394,9 +370,7 @@ export default function Step3SelectPlan({
                   lineHeight: 1.55,
                 }}
               >
-                {fiberAvailable
-                  ? "Pick a plan below — install in as little as 5 business days. No contract, no deposit, no nonsense."
-                  : "Fiber hasn't reached your block yet, but you're covered by our nationwide 5G network."}
+                Pick a plan below — install in as little as 5 business days. No contract, no deposit, no nonsense.
               </p>
             </div>
           </div>
@@ -409,10 +383,31 @@ export default function Step3SelectPlan({
           {/* Loading State */}
           {loading && <PlanSkeletonLoader />}
 
-          {!loading && (
+          {/* Error State */}
+          {!loading && error && (
+            <div
+              style={{
+                background: "var(--cw-bg-1)",
+                border: "1px solid rgba(239,68,68,0.3)",
+                borderRadius: 16,
+                padding: "32px 24px",
+                textAlign: "center",
+                color: "var(--cw-fg-1)",
+              }}
+            >
+              <div style={{ color: "var(--cw-error)", fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+                Unable to load plans
+              </div>
+              <p style={{ color: "var(--cw-fg-3)", fontSize: 14, margin: 0 }}>
+                {error}
+              </p>
+            </div>
+          )}
+
+          {!loading && !error && (
             <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
               {/* Fiber Section */}
-              {fiberAvailable && fiberPlans.length > 0 && (
+              {fiberPlans.length > 0 && (
                 <section>
                   <div
                     style={{
@@ -444,81 +439,6 @@ export default function Step3SelectPlan({
                         selected={selectedPlan?.id === p.id}
                         onSelect={handleSelectPlan}
                         badgeColor="var(--cw-blue)"
-                      />
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Wireless (5G Home) Section */}
-              {home5gAvailable && wirelessPlan && (
-                <section>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      marginBottom: 16,
-                    }}
-                  >
-                    <Ico n="wifi" size={16} color="var(--cw-blue)" />
-                    <h2
-                      style={{
-                        fontFamily: "var(--cw-font-display)",
-                        fontSize: 14,
-                        letterSpacing: "0.18em",
-                        textTransform: "uppercase",
-                        color: "var(--cw-blue)",
-                        margin: 0,
-                      }}
-                    >
-                      5G Home Internet
-                    </h2>
-                  </div>
-                  <div style={{ maxWidth: 380 }}>
-                    <UnifiedPlanCard
-                      plan={wirelessPlan}
-                      selected={selectedPlan?.id === wirelessPlan.id}
-                      onSelect={handleSelectPlan}
-                      badgeColor="var(--cw-blue)"
-                    />
-                  </div>
-                </section>
-              )}
-
-              {/* Mobile Section */}
-              {mobileAvailable && mobilePlans.length > 0 && (
-                <section>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      marginBottom: 16,
-                    }}
-                  >
-                    <Ico n="smartphone" size={16} color="var(--cw-purple)" />
-                    <h2
-                      style={{
-                        fontFamily: "var(--cw-font-display)",
-                        fontSize: 14,
-                        letterSpacing: "0.18em",
-                        textTransform: "uppercase",
-                        color: "var(--cw-purple)",
-                        margin: 0,
-                      }}
-                    >
-                      5G Mobile Plans
-                    </h2>
-                  </div>
-                  <div className="card-grid-3">
-                    {mobilePlans.map((p) => (
-                      <UnifiedPlanCard
-                        key={p.id}
-                        plan={p}
-                        selected={selectedPlan?.id === p.id}
-                        onSelect={handleSelectPlan}
-                        badgeColor="var(--cw-purple)"
                       />
                     ))}
                   </div>

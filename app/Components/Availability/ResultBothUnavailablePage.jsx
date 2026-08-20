@@ -80,25 +80,6 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                background: "rgba(255,185,0,0.12)",
-                border: "1px solid var(--cw-yellow)",
-                color: "var(--cw-navy2)",
-                fontFamily: "var(--cw-font-display)",
-                fontSize: 10,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                fontWeight: 700,
-                padding: "6px 14px",
-                borderRadius: 999,
-              }}
-            >
-              <Ico n="clock" size={12} color="var(--cw-navy2)" /> Fiber · Off-net
-            </div>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
                 background: "rgba(237,52,42,0.12)",
                 border: "1px solid var(--cw-error)",
                 color: "var(--cw-error)",
@@ -111,7 +92,26 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
                 borderRadius: 999,
               }}
             >
-              <Ico n="x" size={12} color="var(--cw-error)" sw={3} /> 5G Mobile · No coverage
+              <Ico n="x" size={12} color="var(--cw-error)" sw={3} /> Fiber · Off-net
+            </div>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                background: "rgba(255,185,0,0.12)",
+                border: "1px solid var(--cw-yellow)",
+                color: "var(--cw-yellow)",
+                fontFamily: "var(--cw-font-display)",
+                fontSize: 10,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                fontWeight: 700,
+                padding: "6px 14px",
+                borderRadius: 999,
+              }}
+            >
+              <Ico n="clock" size={12} color="var(--cw-yellow)" /> Wireless Internet · Coming Soon
             </div>
           </div>
           <h1
@@ -126,7 +126,7 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
               margin: "0 0 16px",
             }}
           >
-            We're not at
+            Fiber Internet is not available
             <br />
             <span
               style={{
@@ -136,7 +136,7 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
                 WebkitTextFillColor: "transparent",
               }}
             >
-              your block — yet.
+              at your location yet.
             </span>
           </h1>
           <p
@@ -148,8 +148,7 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
               maxWidth: 480,
             }}
           >
-            Our network is growing every quarter. Drop your email and we'll let you
-            know the second service lights up at:
+            Fiber Internet has not reached your block yet, and Wireless Internet is coming soon. Drop your email and we'll let you know the second service lights up at:
           </p>
           <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 28 }}>
             <div
@@ -306,23 +305,23 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
                 marginBottom: 10,
               }}
             >
-              In the meantime
+              Coming Soon
             </div>
             {[
               {
-                icon: "smartphone",
-                label: "Try Culture Mobile",
-                sub: "Nationwide coverage — bring your own device or pick a SIM kit.",
-                action: () => router.push("/mobile"),
-              },
-              {
-                icon: "tv",
-                label: "Stream with Culture TV",
-                sub: "Live TV + on-demand on any device. No installer needed.",
+                icon: "wifi",
+                label: "Wireless Internet — Coming Soon",
+                sub: "High-speed wireless home internet is expanding to new neighborhoods soon.",
                 action: () => {},
               },
+              {
+                icon: "smartphone",
+                label: "5G Mobile — Coming Soon",
+                sub: "Nationwide 5G mobile coverage and BYOD plans are coming soon.",
+                action: () => router.push("/mobile"),
+              },
             ].map((c) => (
-              <button
+              <div
                 key={c.label}
                 onClick={c.action}
                 style={{
@@ -334,19 +333,10 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
                   background: "var(--cw-bg-1)",
                   border: "1px solid var(--cw-border-1)",
                   textAlign: "left",
-                  cursor: "pointer",
                   fontFamily: "var(--cw-font-sans)",
                   width: "100%",
                   marginBottom: 10,
-                  transition: "transform 150ms,box-shadow 240ms",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = "var(--cw-shadow-2)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "none";
-                  e.currentTarget.style.boxShadow = "none";
+                  cursor: "default",
                 }}
               >
                 <div
@@ -371,8 +361,7 @@ export default function ResultBothUnavailablePage({ address, zip: zipProp, onBac
                     {c.sub}
                   </div>
                 </div>
-                <Ico n="arrow-right" size={15} color="var(--cw-fg-3)" />
-              </button>
+              </div>
             ))}
           </div>
         </div>

@@ -92,12 +92,8 @@ export default function AvailabilityFlow() {
   const handleBackFromStep5 = () => setStep(4);
   const handleBackFromStep6 = () => setStep(5);
 
-  const isUnavailable =
-    coverageResult &&
-    !coverageResult.fiber &&
-    !coverageResult.home5g &&
-    !coverageResult.mobile;
-console.log(isHydrated)
+  const isUnavailable = coverageResult && !coverageResult.fiber;
+
   // Prevent flicker of Step 1 during SSR hydration / localStorage restoration
   if (!isHydrated) {
     return (

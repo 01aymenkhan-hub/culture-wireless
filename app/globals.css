@@ -2017,7 +2017,6 @@ textarea.form-input {
   min-width: 260px;
 }
 
-
 /* ── Utility: order summary rows (label left, value right, stack on mobile) ── */
 .order-summary-row {
   display: flex;
@@ -2040,11 +2039,28 @@ textarea.form-input {
   display: block;
 }
 
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  1024px  ━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 1024px) {
   .card-grid-5 {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .stats-strip {
+   display: none;
+ 
+  }
+  .mob-plans {
+  grid-template-columns: repeat(3, 1fr);
+}
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  900px  ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -2078,6 +2094,11 @@ textarea.form-input {
   .plan-section-container {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .stats-strip {
+    grid-template-columns: auto 1fr;
+    gap: 8px;
   }
 
   /* Tablet Footer */
@@ -2315,7 +2336,7 @@ textarea.form-input {
     text-align: center !important;
     width: 100%;
     padding-top: 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   .footer-copy {
     text-align: center;
@@ -2392,7 +2413,7 @@ textarea.form-input {
 
   /* Overflow guard on step content containers */
   [style*="padding: 40px 24px"],
-  [style*="padding: \"40px 24px\""] {
+  [style*='padding: "40px 24px"'] {
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
@@ -2461,9 +2482,10 @@ textarea.form-input {
 
 /* ── Spin animation ── */
 @keyframes cwSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
-
-

@@ -108,7 +108,7 @@ export default function Home() {
                 }}
               >
                 <span className="legend-dot" style={{ background: "#77A3FF" }} />
-                5G Mobile (Nationwide)
+                5G Mobile (Coming Soon)
               </span>
             </div>
           </div>
@@ -228,11 +228,11 @@ export default function Home() {
               },
               {
                 icon: "smartphone",
-                title: "Mobile",
+                title: "5G Mobile",
                 price: "from $15",
-                unit: "/mo",
-                text: "Bring your phone, keep your number. Unlimited 5G on the nation's most reliable network.",
-                cta: "See Mobile Plans",
+                unit: "/mo (Coming Soon)",
+                text: "Bring your phone, keep your number. Unlimited 5G nationwide — launching soon.",
+                cta: "View Plans",
                 href: "/mobile",
               },
               {

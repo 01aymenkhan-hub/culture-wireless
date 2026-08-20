@@ -53,10 +53,31 @@ export default function Mobile() {
             <span className="slash">/</span>
             <span>mobile</span>
           </div>
+          <div style={{ marginBottom: 12 }}>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 14px",
+                borderRadius: 999,
+                background: "rgba(255,185,0,0.12)",
+                border: "1px solid var(--cw-yellow)",
+                fontFamily: "var(--cw-font-display)",
+                fontSize: 10,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--cw-yellow)",
+                fontWeight: 700,
+              }}
+            >
+              <Ico n="clock" size={12} color="var(--cw-yellow)" /> 5G Mobile · Coming Soon
+            </span>
+          </div>
           <h1 className="page-h1">MOBILE.</h1>
           <p className="page-lede">
             Bring your phone. Keep your number. Unlimited 5G on the nation's most
-            reliable network.
+            reliable network — launching soon.
           </p>
         </div>
       </div>
@@ -64,10 +85,10 @@ export default function Mobile() {
       {/* Plan Grid */}
       <section className="page-section">
         <div className="sec-inner">
-          <div className="section-eyebrow">Pricing</div>
+          <div className="section-eyebrow">Pricing · Coming Soon</div>
           <h2 className="section-h2">Pick your plan. Keep your phone.</h2>
           <p className="section-sub">
-            All plans include unlimited talk &amp; text, 5G nationwide, Wi-Fi
+            All plans will include unlimited talk &amp; text, 5G nationwide, Wi-Fi
             calling, and calling to Canada and Mexico. No contracts, no surprises.
           </p>
           <div className="mob-plans">
@@ -160,13 +181,22 @@ export default function Mobile() {
                     </div>
                   ))}
                 </div>
-                <Link
-                  href="/mobile/signup"
-                  className={`btn btn-sm ${p.featured ? "btn-primary" : "btn-ghost"}`}
-                  style={{ marginTop: 8, display: "inline-flex", textDecoration: "none", justifyContent: "center" }}
+                <button
+                  type="button"
+                  disabled
+                  className="btn btn-sm btn-ghost"
+                  style={{
+                    marginTop: 8,
+                    display: "inline-flex",
+                    justifyContent: "center",
+                    opacity: 0.65,
+                    cursor: "not-allowed",
+                    color: "var(--cw-fg-3)",
+                    border: "1px solid var(--cw-border-1)",
+                  }}
                 >
-                  Choose {p.name}
-                </Link>
+                  Coming Soon
+                </button>
               </div>
             ))}
           </div>
@@ -368,12 +398,22 @@ export default function Mobile() {
             ))}
           </div>
           <div style={{ display: "flex", gap: 12, marginTop: 16, flexWrap: "wrap" }}>
-            <Link href="/mobile/signup" className="btn btn-primary" style={{ textDecoration: "none" }}>
-              Get Your e-SIM <Ico n="arrow-right" size={13} />
-            </Link>
-            <Link href="/mobile/signup" className="btn btn-ghost" style={{ textDecoration: "none" }}>
-              Activate SIM
-            </Link>
+            <button
+              type="button"
+              disabled
+              className="btn btn-ghost"
+              style={{
+                opacity: 0.65,
+                cursor: "not-allowed",
+                color: "var(--cw-fg-3)",
+                border: "1px solid var(--cw-border-1)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              <Ico n="clock" size={13} color="var(--cw-yellow)" /> SIM &amp; eSIM Ordering · Coming Soon
+            </button>
           </div>
         </div>
       </section>

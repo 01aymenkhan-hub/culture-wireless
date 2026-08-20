@@ -379,9 +379,12 @@ export default function Step6ReviewOrder({
               3. Customer Information
             </div>
             <div
-              className="grid-2-to-1"
+              className=""
               style={{
                 fontSize: 16,
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
               }}
             >
               <div>
@@ -455,8 +458,9 @@ export default function Step6ReviewOrder({
         <div
           style={{
             marginTop: 36,
-            display: "flex",
-            alignItems: "center",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            alignItems: "start",
             justifyContent: "space-between",
             gap: 16,
             flexWrap: "wrap",

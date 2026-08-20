@@ -14,11 +14,11 @@ const ConnectWays = ({ onCheckAvail, navigate }) => {
         },
         {
             icon: "smartphone",
-            title: "Mobile",
+            title: "5G Mobile",
             price: "from $15",
-            unit: "/mo",
-            text: "Bring your phone, keep your number. Unlimited 5G on the nation's most reliable network.",
-            cta: "See Mobile Plans",
+            unit: "/mo (Coming Soon)",
+            text: "Bring your phone, keep your number. Unlimited 5G on the nation's most reliable network — coming soon.",
+            cta: "View Plans",
             action: () => navigate("/mobile"),
         },
         {

@@ -14,7 +14,9 @@ function StatusDot({ status }) {
         ? "#f87171"
         : status === "checking"
           ? "var(--cw-blue)"
-          : "rgba(255,255,255,0.15)";
+          : status === "coming_soon"
+            ? "rgba(255,185,0,0.18)"
+            : "rgba(255,255,255,0.15)";
 
   return (
     <div
@@ -32,6 +34,7 @@ function StatusDot({ status }) {
     >
       {status === "pass" && <Ico n="check" size={11} color="#0f1a14" sw={3} />}
       {status === "fail" && <Ico n="x" size={10} color="#fff" sw={3} />}
+      {status === "coming_soon" && <Ico n="clock" size={11} color="var(--cw-yellow)" sw={2.5} />}
       {status === "checking" && (
         <div
           style={{
@@ -49,7 +52,7 @@ function StatusDot({ status }) {
 
 function ApiCheckCard({ icon, iconColor, label, sub, status, detail }) {
   const isActive =
-    status === "checking" || status === "pass" || status === "fail";
+    status === "checking" || status === "pass" || status === "fail" || status === "coming_soon";
 
   return (
     <div
@@ -121,7 +124,7 @@ function ApiCheckCard({ icon, iconColor, label, sub, status, detail }) {
         <div
           style={{
             fontSize: 12,
-            color: "rgba(255,255,255,0.55)",
+            color: status === "coming_soon" ? "var(--cw-yellow)" : "rgba(255,255,255,0.55)",
             marginTop: 2,
           }}
         >
@@ -129,7 +132,9 @@ function ApiCheckCard({ icon, iconColor, label, sub, status, detail }) {
             ? detail || "Available"
             : status === "fail"
               ? detail || "Not available"
-              : sub}
+              : status === "coming_soon"
+                ? "Coming Soon"
+                : sub}
         </div>
       </div>
       <StatusDot status={status} />
@@ -212,30 +217,12 @@ async function postJson(url, body) {
   return res.json().catch(() => ({}));
 }
 
-function formatCoverageDetail(data, label) {
-  if (data?.available) {
-    const sig = typeof data.signal === "number" ? `${data.signal} dBm` : "";
-    const cov =
-      typeof data.coverage === "number"
-        ? `${Math.round(data.coverage * 100)}% coverage`
-        : "";
-    const bits = [sig, cov].filter(Boolean).join(", ");
-    if (data.status === "caution") {
-      return bits
-        ? `${label} qualified with caution (${bits})`
-        : `${label} qualified with caution`;
-    }
-    return bits ? `${label} available (${bits})` : `${label} available`;
-  }
-  return data?.error ? `${label} not available (${data.error})` : `${label} not available`;
-}
-
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /* -------------------------------------------------------------------------- */
-/*  SmartCheckingPage — sequential geocode → fiber → 5G home → mobile         */
+/*  SmartCheckingPage — Fiber-only live check (Wireless & Mobile Coming Soon) */
 /* -------------------------------------------------------------------------- */
 export default function SmartCheckingPage({
   address,
@@ -246,13 +233,13 @@ export default function SmartCheckingPage({
   const [results, setResults] = useState({
     geocode: null,
     fiber: null,
-    home5g: null,
-    mobile: null,
+    home5g: "coming_soon",
+    mobile: "coming_soon",
   });
   const [details, setDetails] = useState({
     fiber: "",
-    home5g: "",
-    mobile: "",
+    home5g: "Coming Soon",
+    mobile: "Coming Soon",
   });
   const completedRef = useRef(false);
 
@@ -266,8 +253,7 @@ export default function SmartCheckingPage({
     let cancelled = false;
 
     const runChecks = async () => {
-      // Address payload used by every downstream API. Server helpers accept both
-      // normalized (streetAddress, zipCode...) and legacy field names.
+      // Address payload used by Fiber API.
       const payload = {
         formattedAddress: address?.formattedAddress || "",
         streetAddress: address?.streetAddress || "",
@@ -279,13 +265,13 @@ export default function SmartCheckingPage({
         longitude: address?.longitude ?? null,
       };
 
-      // Phase 1 — geocoding (already done in AddressEntryV2 for real addresses)
-      await delay(600);
+      // Phase 1 — geocoding
+      await delay(500);
       if (cancelled) return;
       setResults((r) => ({ ...r, geocode: "pass" }));
       setPhase("fiber");
 
-      // Phase 2 — Fiber via eBOSS
+      // Phase 2 — Fiber via eBOSS (ONLY active network check)
       let fiberResult = "fail";
       let fiberDetail = "";
       try {
@@ -305,45 +291,7 @@ export default function SmartCheckingPage({
       }
       if (cancelled) return;
       setDetails((d) => ({ ...d, fiber: fiberDetail }));
-      setResults((r) => ({ ...r, fiber: fiberResult }));
-      setPhase("home5g");
-
-      // Phase 3 — 5G Home via CoverageMap
-      let home5gResult = "fail";
-      let home5gDetail = "";
-      let home5gStatus = "unavailable";
-      try {
-        const data = await postJson("/api/coverage", {
-          ...payload,
-          serviceType: "home_internet",
-        });
-        home5gResult = data.available ? "pass" : "fail";
-        home5gStatus = data.status || (data.available ? "available" : "unavailable");
-        home5gDetail = formatCoverageDetail(data, "5G Home");
-      } catch {
-        home5gDetail = "5G Home not available (Error)";
-      }
-      if (cancelled) return;
-      setDetails((d) => ({ ...d, home5g: home5gDetail }));
-      setResults((r) => ({ ...r, home5g: home5gResult }));
-      setPhase("mobile");
-
-      // Phase 4 — 5G Mobile via CoverageMap
-      let mobileResult = "fail";
-      let mobileDetail = "";
-      try {
-        const data = await postJson("/api/coverage", {
-          ...payload,
-          serviceType: "mobile",
-        });
-        mobileResult = data.available ? "pass" : "fail";
-        mobileDetail = formatCoverageDetail(data, "5G Mobile");
-      } catch {
-        mobileDetail = "5G Mobile not available (Error)";
-      }
-      if (cancelled) return;
-      setDetails((d) => ({ ...d, mobile: mobileDetail }));
-      setResults((r) => ({ ...r, mobile: mobileResult }));
+      setResults((r) => ({ ...r, fiber: fiberResult, home5g: "coming_soon", mobile: "coming_soon" }));
       setPhase("done");
 
       if (autoAdvance && !completedRef.current) {
@@ -352,12 +300,12 @@ export default function SmartCheckingPage({
         completedRef.current = true;
         onComplete({
           fiber: fiberResult === "pass",
-          home5g: home5gResult === "pass",
-          home5gStatus,
-          mobile: mobileResult === "pass",
+          home5g: false,
+          home5gStatus: "unavailable",
+          mobile: false,
           fiberDetail,
-          home5gDetail,
-          mobileDetail,
+          home5gDetail: "Wireless Internet coming soon",
+          mobileDetail: "5G Mobile coming soon",
         });
       }
     };
@@ -366,8 +314,6 @@ export default function SmartCheckingPage({
     return () => {
       cancelled = true;
     };
-    // Intentionally run once on mount; downstream helpers all read from `address` at time of call.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const allDone = phase === "done";
@@ -480,27 +426,17 @@ export default function SmartCheckingPage({
             icon="wifi"
             iconColor="var(--cw-blue)"
             label="5G Home Internet"
-            sub="Querying CoverageMap…"
-            status={getStatus("home5g")}
-            detail={
-              details.home5g ||
-              (getStatus("home5g") === "pass"
-                ? "5G Home available"
-                : "5G Home not available")
-            }
+            sub="Coming Soon"
+            status="coming_soon"
+            detail="Coming Soon"
           />
           <ApiCheckCard
             icon="smartphone"
             iconColor="var(--cw-purple)"
             label="5G Mobile"
-            sub="Querying CoverageMap…"
-            status={getStatus("mobile")}
-            detail={
-              details.mobile ||
-              (getStatus("mobile") === "pass"
-                ? "5G Mobile available"
-                : "5G Mobile not available")
-            }
+            sub="Coming Soon"
+            status="coming_soon"
+            detail="Coming Soon"
           />
         </div>
 
@@ -512,12 +448,12 @@ export default function SmartCheckingPage({
                 completedRef.current = true;
                 onComplete({
                   fiber: results.fiber === "pass",
-                  home5g: results.home5g === "pass",
-                  home5gStatus: home5gStatus || "unavailable",
-                  mobile: results.mobile === "pass",
+                  home5g: false,
+                  home5gStatus: "unavailable",
+                  mobile: false,
                   fiberDetail: details.fiber,
-                  home5gDetail: details.home5g,
-                  mobileDetail: details.mobile,
+                  home5gDetail: "Wireless Internet coming soon",
+                  mobileDetail: "5G Mobile coming soon",
                 });
               }
             }}

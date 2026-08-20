@@ -326,7 +326,7 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
         style={{
           padding: "56px 32px 48px",
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          // gridTemplateColumns: "1fr 1fr",
           gap: 56,
           maxWidth: 1280,
           margin: "0 auto",
@@ -625,7 +625,12 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
           </label>
 
           <div
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: 16,
+              alignItems: "start",
+            }}
           >
             <label style={{ display: "block" }}>
               <div
@@ -770,9 +775,6 @@ export default function AddressEntryV2({ onSubmit, onBack }) {
         style={{
           background: "var(--cw-navy-deep)",
           color: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           padding: "0 56px",
           borderTop: "1px solid rgba(255,255,255,0.06)",
           maxWidth: "1280px",
