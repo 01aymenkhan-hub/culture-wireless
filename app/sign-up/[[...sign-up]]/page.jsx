@@ -1,11 +1,7 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { SignUp } from "@clerk/nextjs";
-
+// The website no longer uses a custom sign-up page.
+// Customers create their account automatically during the Zoho Hosted Checkout flow.
 export default function SignUpPage() {
-  return (
-    <main className="clerk-auth-page">
-      <SignUp />
-    </main>
-  );
+  redirect("https://billing.zohosecure.com/portal/culturewirelessportal/signin");
 }

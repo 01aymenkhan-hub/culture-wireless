@@ -1,18 +1,10 @@
 import { NextResponse } from "next/server";
-import { requireAuthenticatedCheckout } from "@/lib/auth/checkout";
-import { connectToDatabase } from "@/lib/db/mongodb";
-import CheckoutSession from "@/lib/db/models/CheckoutSession";
 import { createHostedPage, isZohoEnabled } from "@/lib/api/zoho";
 import { resolveAddressWithGoogleMaps } from "@/lib/api/googleGeocode";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req) {
-  // This is the actual payment boundary. Do not rely on the client-side
-  // redirect alone: a direct API call must not create a Zoho Hosted Page.
-  const { userId, response } = await requireAuthenticatedCheckout();
-  if (response) return response;
-
   if (!isZohoEnabled()) {
     return NextResponse.json(
       {
@@ -87,15 +79,6 @@ export async function POST(req) {
         { status: 502 },
       );
     }
-
-    // Keep the Zoho reference bound to the identity obtained from Clerk on
-    // this request. Never accept a client-provided user ID for this relation.
-    await connectToDatabase();
-    await CheckoutSession.findOneAndUpdate(
-      { hostedPageId },
-      { $set: { clerkUserId: userId } },
-      { upsert: true, new: true, setDefaultsOnInsert: true },
-    );
 
     return NextResponse.json({
       ...result,

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getHostedPage, createDeskTicket, isZohoEnabled } from "@/lib/api/zoho";
 import { sendEmail } from "@/lib/email/sendEmail";
 import { buildOrderConfirmationEmail } from "@/lib/email/templates/orderConfirmation";
-import { requireOwnedCheckout } from "@/lib/auth/checkout";
 
 export const dynamic = "force-dynamic";
 
@@ -16,9 +15,6 @@ export async function GET(req) {
       { status: 400 },
     );
   }
-
-  const { response } = await requireOwnedCheckout(hostedpageId);
-  if (response) return response;
 
   if (!isZohoEnabled()) {
     return NextResponse.json(

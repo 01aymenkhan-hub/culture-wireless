@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "../../context/ThemeContext";
 import { Ico } from "../Icons";
-import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 const NAV_LINKS = [
@@ -14,6 +13,9 @@ const NAV_LINKS = [
   { path: "/about", label: "About" },
   { path: "/support", label: "Support" },
 ];
+
+const ZOHO_PORTAL_SIGNIN_URL =
+  "https://billing.zohosecure.com/portal/culturewirelessportal/signin";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -83,16 +85,13 @@ export default function Nav() {
                 <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
               </svg>
             </button>
-            <Show when="signed-out">
-              <SignInButton>
-                <button className="btn btn-ghost btn-sm btn-hide-mob" onClick={handleLinkClick}>
-                  <Ico n="user" size={13} /> Sign In
-                </button>
-              </SignInButton>
-            </Show>
-            <Show when="signed-in">
-              <UserButton />
-            </Show>
+            <a
+              href={ZOHO_PORTAL_SIGNIN_URL}
+              className="btn btn-ghost btn-sm btn-hide-mob"
+              onClick={handleLinkClick}
+            >
+              <Ico n="user" size={13} /> My Account
+            </a>
             <Link
               href="/check-availability"
               className="btn btn-primary btn-sm btn-hide-mob"
@@ -161,22 +160,16 @@ export default function Nav() {
             >
               Check Availability
             </Link>
-            <Show when="signed-out">
-              <SignInButton>
-                <button
-                  className="btn btn-ghost"
-                  style={{ width: "100%", justifyContent: "center" }}
-                  onClick={handleLinkClick}
-                >
-                  Sign In
-                </button>
-              </SignInButton>
-            </Show>
-            <Show when="signed-in">
-              <div style={{ display: "flex", justifyContent: "center", padding: 8 }}>
-                <UserButton />
-              </div>
-            </Show>
+            <a
+              href={ZOHO_PORTAL_SIGNIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost"
+              style={{ width: "100%", justifyContent: "center" }}
+              onClick={handleLinkClick}
+            >
+              <Ico n="user" size={13} /> My Account
+            </a>
           </div>
         </div>
       </div>

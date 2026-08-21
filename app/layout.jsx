@@ -5,7 +5,6 @@ import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AvailabilityProvider } from "./context/AvailabilityContext";
 import LayoutClient from "./layout-client";
-import ClerkThemeProvider from "./Components/Auth/ClerkThemeProvider";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -63,11 +62,9 @@ export default function RootLayout({ children }) {
         ) : null}
 
         <ThemeProvider>
-          <ClerkThemeProvider>
-            <AvailabilityProvider>
-              <LayoutClient>{children}</LayoutClient>
-            </AvailabilityProvider>
-          </ClerkThemeProvider>
+          <AvailabilityProvider>
+            <LayoutClient>{children}</LayoutClient>
+          </AvailabilityProvider>
         </ThemeProvider>
       </body>
     </html>

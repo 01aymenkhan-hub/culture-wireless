@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getHostedPage, createDeskTicket, isZohoEnabled } from "@/lib/api/zoho";
 import { createTelgooCustomerServer, formatTelgooError } from "@/lib/api/telgoo";
 import QRCode from "qrcode";
-import { requireOwnedCheckout } from "@/lib/auth/checkout";
 
 export const dynamic = "force-dynamic";
 
@@ -18,9 +17,6 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-
-    const { response } = await requireOwnedCheckout(hostedpageId);
-    if (response) return response;
 
     if (!isZohoEnabled()) {
       return NextResponse.json(
