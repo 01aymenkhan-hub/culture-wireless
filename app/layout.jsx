@@ -50,7 +50,11 @@ export default function RootLayout({ children }) {
       className={`${orbitron.variable} ${jost.variable}`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
       </head>
       <body>
         {googleMapsKey ? (

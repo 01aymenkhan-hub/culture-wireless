@@ -35,7 +35,7 @@ export default function Support() {
     },
     {
       q: "What's the number for emergencies/outages?",
-      a: "Call (404) 555-0148. We have 24/7 local staff. Average answer time is under 90 seconds.",
+      a: "Call (877) 706 9600. We have 24/7 local staff. Average answer time is under 90 seconds.",
     },
     {
       q: "Can I get a tech to come to my house?",
@@ -105,7 +105,7 @@ export default function Support() {
           <h2 className="section-h2">Real people. Local. Fast.</h2>
           <div className="card-grid-3" style={{ marginTop: 16 }}>
             <a
-              href="tel:+14045550148"
+              href="tel:+18777069600"
               className="channel-card"
               style={{ textDecoration: "none" }}
             >
@@ -124,10 +124,10 @@ export default function Support() {
                 Call
               </div>
               <div style={{ fontWeight: 600, fontSize: 16 }}>
-                (404) 555-0148
+                (877) 706-9600
               </div>
               <div style={{ fontSize: 12, color: "var(--cw-fg-3)" }}>
-                Mon–Sun · 6am–11pm
+                Mon–Fri · 8am–6pm
               </div>
             </a>
             <a

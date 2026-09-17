@@ -61,10 +61,7 @@ export default function About() {
                   marginBottom: 14,
                 }}
               >
-                Culture Wireless was founded in 2019 by Atlanta natives who'd
-                watched too many neighborhoods get passed over by national carriers.
-                We started with one fiber pull on the East Side of Atlanta. We're
-                now in 1200+ communities across Georgia and the Lower 48.
+                Culture Wireless was founded in 2019 by Atlanta natives who'd watched too many neighborhoods get passed over by national carriers. We started with one fiber pull on the West Side of Atlanta. We're now in 10,000+ homes passed across Georgia and the Lower 48.
               </p>
               <p
                 style={{
@@ -201,82 +198,105 @@ export default function About() {
         </div>
       </section>
 
-      {/* Press */}
-      <section className="page-section" style={{ background: "var(--cw-bg-2)" }}>
-        <div className="sec-inner">
-          <div className="section-eyebrow">Press</div>
-          <h2 className="section-h2">In the news.</h2>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 0,
-              border: "1px solid var(--cw-border-1)",
-              borderRadius: 12,
-              overflow: "hidden",
-              marginTop: 12,
-              maxWidth: 800,
-            }}
-          >
-            {[
-              {
-                pub: "AJC",
-                headline: "Culture Wireless lights up Albany with first municipal fiber",
-                date: "Apr 22, 2026",
-              },
-              {
-                pub: "TechCrunch",
-                headline: "How a small Georgia ISP is taking on the national carriers",
-                date: "Mar 14, 2026",
-              },
-              {
-                pub: "NPR",
-                headline: "Closing the digital divide one block at a time",
-                date: "Jan 30, 2026",
-              },
-              {
-                pub: "Forbes",
-                headline: "30 Under 30: Jamal Reeves rebuilds rural broadband",
-                date: "Dec 5, 2025",
-              },
-            ].map((n, i) => (
-              <div
-                key={i}
+     {/* Press */}
+    <section className="page-section" style={{ background: "var(--cw-bg-2)" }}>
+      <div className="sec-inner">
+        <div className="section-eyebrow">Press</div>
+        <h2 className="section-h2">In the news.</h2>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 0,
+            border: "1px solid var(--cw-border-1)",
+            borderRadius: 12,
+            overflow: "hidden",
+            marginTop: 12,
+            maxWidth: 800,
+          }}
+        >
+          {[
+            {
+              pub: "11Alive",
+              headline: "Culture Wireless Works to Expand Access in Underserved Communities",
+              date: "",
+              href: "https://www.11alive.com/video/news/community/one-on-one/culture-wireless-works-to-expand-access-in-underserved-communities/85-9de0e6f4-dbd5-4a38-a68b-eb2c2873f4f9",
+            },
+            {
+              pub: "AfroTech",
+              headline: "How Culture Wireless Co-Founder William 'Bam' Sparks Is Bridging The Digital Divide Through Community Ownership",
+              date: "",
+              href: "https://afrotech.com/culture-wireless-founder-bridging-digital-divide-through-community-ownership",
+            },
+            {
+              pub: "Andreessen Horowitz",
+              headline: "Meet the Talent x Opportunity Fall '23 Cohort",
+              date: "",
+              href: "https://a16z.com/meet-the-talent-x-opportunity-fall-23-cohort/",
+            },
+            {
+              pub: "Rolling Out",
+              headline: "Culture Wireless' Jerome Howard Provides Quality, Inexpensive Internet Service",
+              date: "",
+              href: "https://rollingout.com/2023/12/12/culture-wireless-jerome-howard/",
+            },
+            {
+              pub: "iHeart / Black Tech Green Money",
+              headline: "Jerome Howard — Culture Wireless",
+              date: "",
+              href: "https://www.iheart.com/podcast/1119-black-tech-green-money-80005661/episode/jerome-howard-culture-wireless-149927046/",
+            },
+            {
+              pub: "The Atlanta Voice",
+              headline: "Culture Wireless: Bridging the Digital Gap",
+              date: "",
+              href: "https://www.theatlantavoice.com/business/culture-wireless-bridging-digital-gap-01ccc6ae",
+            },
+          ].map((n, i) => (
+            
+            <a key={i}
+              href={n.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                padding: "16px 20px",
+                borderBottom: "1px solid var(--cw-border-1)",
+                background: "var(--cw-bg-1)",
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                textDecoration: "none",
+                transition: "background 0.15s",
+              }}
+            >
+              <span
                 style={{
-                  padding: "16px 20px",
-                  borderBottom: "1px solid var(--cw-border-1)",
-                  background: "var(--cw-bg-1)",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 16,
+                  padding: "4px 10px",
+                  borderRadius: 6,
+                  background: "var(--cw-bg-3)",
+                  fontFamily: "var(--cw-font-display)",
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  color: "var(--cw-fg-3)",
+                  flexShrink: 0,
                 }}
               >
-                <span
-                  style={{
-                    padding: "4px 10px",
-                    borderRadius: 6,
-                    background: "var(--cw-bg-3)",
-                    fontFamily: "var(--cw-font-display)",
-                    fontSize: 10,
-                    fontWeight: 700,
-                    letterSpacing: "0.12em",
-                    color: "var(--cw-fg-3)",
-                    flexShrink: 0,
-                  }}
-                >
-                  {n.pub}
-                </span>
-                <div style={{ flex: 1, fontWeight: 500, fontSize: 14, color: "var(--cw-fg-1)" }}>
-                  {n.headline}
-                </div>
+                {n.pub}
+              </span>
+              <div style={{ flex: 1, fontWeight: 500, fontSize: 14, color: "var(--cw-fg-1)" }}>
+                {n.headline}
+              </div>
+              {n.date && (
                 <div style={{ fontFamily: "var(--cw-font-mono)", fontSize: 11, color: "var(--cw-fg-3)", flexShrink: 0 }}>
                   {n.date}
                 </div>
-              </div>
-            ))}
-          </div>
+              )}
+            </a>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
     </main>
   );
 }

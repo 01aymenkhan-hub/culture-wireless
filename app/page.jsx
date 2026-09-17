@@ -35,8 +35,8 @@ export default function Home() {
           </div>
           <div className="stats-bar">
             <div className="stat-item">
-              <div className="stat-num">1200+</div>
-              <div className="stat-label">Communities served</div>
+              <div className="stat-num">10,000</div>
+              <div className="stat-label">Homes Passed</div>
             </div>
             <div className="stat-item">
               <div className="stat-num">99.9%</div>
@@ -112,6 +112,34 @@ export default function Home() {
               </span>
             </div>
           </div>
+          <div style={{ marginBottom: 20 }}>
+            <Link
+              href="/clayton"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "12px 18px",
+                borderRadius: 8,
+                border: "1px solid rgba(255,185,0,0.4)",
+                background: "rgba(255,185,0,0.10)",
+                color: "var(--cw-fg-1)",
+                fontFamily: "var(--cw-font-display)",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <span style={{ color: "var(--cw-yellow)", fontWeight: 700 }}>
+                Now launching
+              </span>
+              Clayton County, GA · $55 any speed →
+            </Link>
+          </div>
+
           <CoverageMap />
         </div>
       </section>
@@ -144,10 +172,7 @@ export default function Home() {
                   marginBottom: 24,
                 }}
               >
-                Culture Wireless was founded in 2019 by Atlanta natives who'd watched
-                too many neighborhoods get passed over by national carriers. We started
-                with one fiber pull on the East Side. We're now in 1200+ communities
-                across the nation.
+                Culture Wireless was founded in 2019 by Atlanta natives who'd watched too many neighborhoods get passed over by national carriers. We started with one fiber pull on the West Side of Atlanta. We're now in 10,000+ homes passed across Georgia and the Lower 48.
               </p>
               <Link href="/about" className="btn btn-primary">
                 Our Story <Ico n="arrow-right" size={13} />
@@ -220,7 +245,7 @@ export default function Home() {
               {
                 icon: "wifi",
                 title: "Home Fiber",
-                price: "$49",
+                price: "$55",
                 unit: "/mo",
                 text: "Fiber to the home. 100 Mbps to 1 Gig. No contracts, no caps, no nonsense.",
                 cta: "Check Availability",
@@ -299,13 +324,13 @@ export default function Home() {
       <section className="page-section">
         <div className="sec-inner">
           <div className="section-eyebrow">From our customers</div>
-          <h2 className="section-h2">Voices from the block.</h2>
+          <h2 className="section-h2">Voice from the block:</h2>
           <div className="card-grid-3" style={{ marginTop: 16 }}>
             {[
               {
                 text: "Got fiber installed Tuesday. Watched my granddaughter's recital live in 4K Wednesday. That's it. That's the review.",
                 name: "Diane M.",
-                loc: "East Point, GA",
+                loc: "Riverdale, GA",
                 initials: "DM",
               },
               {
@@ -317,7 +342,7 @@ export default function Home() {
               {
                 text: "When the storm knocked out power, their tech was on my street the next morning. Try getting that from a 1-800.",
                 name: "Rosa B.",
-                loc: "Macon, GA",
+                loc: "Jonesboro, GA",
                 initials: "RB",
               },
             ].map((t, i) => (
